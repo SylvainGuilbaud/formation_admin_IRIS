@@ -1,8 +1,7 @@
+.DS_Store
 **/.DS_Store
 **/~*
 key
 **/out
 volumes
-**/archive/*.hl7*
-**/*.key
-internal
+**/archive/*
