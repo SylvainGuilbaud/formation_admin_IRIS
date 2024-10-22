@@ -1,0 +1,6 @@
+[Actions]
+CreateResource:Name=%DB_NEW_DATA,Description="NEW_DATA database"
+CreateDatabase:Name=NEW_DATA,Directory=/usr/irissys/mgr/NEW_DATA,Resource=%DB_NEW_DATA
+CreateResource:Name=%DB_NEW_CODE,Description="NEW_CODE database"
+CreateDatabase:Name=NEW_CODE,Directory=/usr/irissys/mgr/NEW_CODE,Resource=%DB_NEW_CODE
+CreateNamespace:Name=NEW,Globals=NEW_DATA,Routines=NEW_CODE,Interop=1

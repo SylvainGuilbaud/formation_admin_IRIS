@@ -1,0 +1,7 @@
+pandas
+sqlalchemy
+sqlalchemy-iris
+irissqlcli
+matplotlib==3.7.1
+matplotlib-inline==0.1.6
+psycopg2-binary
