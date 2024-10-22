@@ -1,5 +1,5 @@
 [Startup]
-SystemMode=TEST
+SystemMode=LIVE
 
 [config]
 globals=0,0,8192,0,0,0
