@@ -1,6 +1,0 @@
-Version=1.0
-Host=prod-1,/volumes/prod-1/mgr/
-Edition=1,1729631650,2024-10-22 21:14:10
-Base=0
-<EndOfHeader>
-,/volumes/prod-1/mgr/journal/20241022.002,1-7,94A78A26-90BA-11EF-8646-0242AC110006,,2024-10-22 21:14:10,-1,6657
