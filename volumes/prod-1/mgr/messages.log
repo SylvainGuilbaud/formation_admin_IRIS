@@ -735,3 +735,33 @@ Journaling started to: /volumes/prod-1/mgr/journal/20241022.002
 10/22/24-23:14:13:145 (1673) 1 [Utility.Event] Production AutoStart: ERROR in namespace 'IRISAPP': 'ERROR <Ens>ErrException: <CLASS DOES NOT EXIST>getProductionItems+55^Ens.Director.1 *FHIR.process.HL7v2toSDA -- logged as '-' number - @''' $ZU(56,2)='$Id: //iris/2024.2.0/kernel/common/src/acmd.c#1 $ 4564 0'
 10/22/24-23:15:41:612 (1707) 0 [Utility.Event] %SYS.Task.FeatureTracker transferred data to ats.intersystems.com
 10/22/24-23:25:18:116 (1738) 0 [Database.MountedRW] Mounted database /volumes/prod-1/mgr/IRISAPP_DATA/irisapp_datasecondary/ (SFN 10) read-write.
+10/22/24-23:33:05:823 (1751) 0 [Utility.Event] User 'irisowner' shutting down InterSystems IRIS
+10/22/24-23:33:06:695 (1689) 0 [Utility.Event] [SYSTEM MONITOR] System Monitor stopped in %SYS
+10/22/24-23:33:06:695 (1751) 0 [Utility.Event] Notifying Clients
+10/22/24-23:33:06:696 (1751) 0 [Utility.Event] No user shutdown routines to execute
+10/22/24-23:33:06:699 (1751) 0 [Utility.Event] Stopping User Jobs
+10/22/24-23:33:10:748 (1751) 0 [Utility.Event] Stopping Network Servers
+10/22/24-23:33:10:752 (1751) 0 [Utility.Event] Withdrawing from License Domain
+10/22/24-23:33:10:763 (1751) 0 [Generic.Event] Auditing stopped
+10/22/24-23:33:10:765 (1751) 0 [Utility.Event] Stopping Client Networking
+10/22/24-23:33:10:767 (1751) 0 [Utility.Event] Updating Journal File
+10/22/24-23:33:10:804 (1751) 0 [Utility.Event] Journal restore not required at next startup
+10/22/24-23:33:10:805 (1751) 0 [Utility.Event] Transaction rollback not required at next startup
+10/22/24-23:33:10:879 (1751) 0 [Utility.Event] Removing database locks
+10/22/24-23:33:10:903 (1751) 0 [Utility.Event] Waiting for database updates to complete
+10/22/24-23:33:10:904 (1751) 0 [Utility.Event] Database updates complete
+10/22/24-23:33:10:904 (1751) 0 [Utility.Event] Stopping System Jobs
+10/22/24-23:33:11:012 (1664) 0 [Generic.Event] JRNDMN exited due to system shutdown
+10/22/24-23:33:11:012 (1672) 0 [Generic.Event] EXPDMN exited due to system shutdown
+10/22/24-23:33:11:013 (1669) 0 [Generic.Event] AUXWD #4 exited due to system shutdown
+10/22/24-23:33:11:012 (1663) 0 [Generic.Event] GARCOL exited due to system shutdown
+10/22/24-23:33:11:012 (1665) 0 [Generic.Event] AUXWD #1 exited due to system shutdown
+10/22/24-23:33:11:013 (1666) 0 [Generic.Event] AUXWD #2 exited due to system shutdown
+10/22/24-23:33:11:013 (1667) 0 [Generic.Event] AUXWD #3 exited due to system shutdown
+10/22/24-23:33:11:014 (1668) 0 [Generic.Event] AUXWD #5 exited due to system shutdown
+10/22/24-23:33:11:014 (1671) 0 [Generic.Event] AUXWD #6 exited due to system shutdown
+10/22/24-23:33:11:015 (1670) 0 [Generic.Event] AUXWD #7 exited due to system shutdown
+10/22/24-23:33:11:016 (1662) 0 [Generic.Event] No blocks pending in WIJ file
+10/22/24-23:33:11:021 (1662) 0 [Generic.Event] WRTDMN exited due to system shutdown
+10/22/24-23:33:11:027 (1621) 0 [Generic.Event] CONTROL exited due to system shutdown
+10/22/24-23:33:11:061 (1751) 0 [Utility.Event] Shutdown complete
