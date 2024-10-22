@@ -1,0 +1,100 @@
+    
+    set ^["USER"]TRACE($zdt($now(),3,,6),"BUILD START")="IRISAPP"
+    set ^["USER"]TRACE("BUILD START")=$zh
+
+    set sc = ##class(%EnsembleMgr).EnableNamespace("USER")
+    set step="Add interop to USER namespace"
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+   
+    // common
+    set sc = $system.OBJ.Load("/home/irisowner/dev/common/inc/common.inc","ck")
+    set step="Load common.inc "
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+   
+    set sc = $SYSTEM.OBJ.LoadDir("/home/irisowner/dev/common","ck",,1)
+    set step="Load common package "
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+   
+    //set r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="ISC.FeatureTracker.SSL.Config" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
+    set sc = $SYSTEM.OBJ.Load("/home/irisowner/dev/zpm-0.7.2.xml","ck")
+    set step="Install IPM"
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+    zpm "install webterminal"
+    zpm "install classexplorer" 
+    zpm "install swagger-ui"
+    zpm "install pex-embbeded-python"
+
+    zn "%SYS"
+    do ##class(%SYSTEM.CSP).SetConfig("CSPConfigName","iris-prod-1")
+
+    do ##class(Security.Users).UnExpireUserPasswords("*")
+    do ##class(%SQL.Statement).%ExecDirect(,"update security.events set enabled=1")
+
+    set username="interop"
+    set roles="%EnsRole_Developer,%DB_IRISAPP_CODE,%DB_IRISAPP_DATA"
+    set password="SYS"
+    set step="Create user " _ username
+    set sc = ##class(Security.Users).Create(username,roles,password,,"IRISAPP",,"",0,1,,,,,,1,1)
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+
+    set username="IRISAPP"
+    set roles="%All"
+    set password="SYS"
+    set ChangePassword = 1
+    set step="Create user " _ username
+    set sc = ##class(Security.Users).Create(username,roles,password,,"IRISAPP",,"",ChangePassword,1,,,,,,1,1)
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+
+    // Encryption Key
+    set EncryptionKeyFile="/home/irisowner/keys/encryption-key-irisapp.key"
+    set sc = ##class(%SYSTEM.Encryption).CreateAutoEncryptionKeyOnly(EncryptionKeyFile,256,"Encryption key for IRISAPP",.EncryptionKeyUser,.EncryptionKeyPassword)
+    set step="Create Encryption Key"
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+    set sc = ##class(%SYSTEM.Encryption).ActivateAutoEncryptionKey(EncryptionKeyFile,EncryptionKeyUser,EncryptionKeyPassword,1,1,1)
+    set step="Activate Encryption Key"
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+
+    // SSL Config 
+
+    set SSLConfigName = "app"
+    set ipcSSLConfig("Type")=0
+    set ipcSSLConfig("Description")="Formation Admin IRIS"
+    set sc =  ##class(Security.SSLConfigs).Create(SSLConfigName,.ipcSSLConfig)
+    set step="Create SSL config " _ SSLConfigName
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+
+
+    set SSLConfigName = "webgateway"
+    set webgatewaySSLConfig("CertificateFile")= "/opt/cert/iris-prod-1.pem"
+    set webgatewaySSLConfig("PrivateKeyFile")="/opt/cert/iris-prod-1.key"
+    set webgatewaySSLConfig("Type")=1
+    set sc =  ##class(Security.SSLConfigs).Create(SSLConfigName,.webgatewaySSLConfig)
+    set step="Create SSL config " _ SSLConfigName
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+
+    // SuperServer Config
+    set SuperServerConfig("BindAddress")=""
+    set SuperServerConfig("Description")="System default port"
+    set SuperServerConfig("DoNotStart")=0
+    set SuperServerConfig("EnableCSP")=1
+    set SuperServerConfig("EnableCacheDirect")=0
+    set SuperServerConfig("EnableClients")=1
+    set SuperServerConfig("EnableDataCheck")=1
+    set SuperServerConfig("EnableECP")=1
+    set SuperServerConfig("EnableMirror")=1
+    set SuperServerConfig("EnableNodeJS")=0
+    set SuperServerConfig("EnableSNMP")=0
+    set SuperServerConfig("EnableShadows")=0
+    set SuperServerConfig("EnableSharding")=1
+    set SuperServerConfig("EnableWebLink")=0
+    set SuperServerConfig("Enabled")=1
+    set SuperServerConfig("ImportOperation")=0
+    set SuperServerConfig("Port")=1972
+    set SuperServerConfig("SSLConfig")=SSLConfigName
+    set SuperServerConfig("SSLSupportLevel")=1
+    set SuperServerConfig("SystemDefault")=1
+    set sc = ##class(Security.Servers).Modify(1972,,.SuperServerConfig)
+    set step="Modify SuperServer Config " _ SSLConfigName
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+
+    halt

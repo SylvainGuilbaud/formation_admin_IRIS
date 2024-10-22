@@ -1,0 +1,16 @@
+dataclass-csv
+numpy
+pandas
+geopy
+chronyk
+folium
+openpyxl
+matplotlib
+sqlalchemy-iris
+holidays
+flask
+reportlab
+requests>=2.31.0
+iris-pex-embedded-python
+jsonpath-ng>=1.5.2
+pytest

@@ -1,24 +1,66 @@
 version: '3.6'
 services:
-  iris:
+  iris-dev:
     build: 
       context: .
       dockerfile: Dockerfile
     restart: always
-    hostname: iris-admin
-    container_name: iris-admin
+    hostname: iris-dev
+    container_name: iris-dev
     environment:
       - ISC_CPF_MERGE_FILE=/app/merge.cpf
     command: 
       --check-caps false
     ports: 
       - 1972
-      - 52001:52773
+      - 10000:52773
       - 53773
     volumes:
       - ./:/app
       - ./init.db/:/docker-entrypoint-initdb.d/
       - ./jdbc:/jdbc
+
+  iris-prod-1:
+    build: 
+      context: ./iris-prod-1
+      args:
+      - TARGETARCH=${TARGETARCH}
+    init: true
+    container_name: ${iris-prod-1}
+    hostname: ${iris-prod-1}
+    volumes:
+    - ./iris-prod-1:/irisdev/app
+    - ./iris-prod-1/init.db/:/docker-entrypoint-initdb.d/
+    - ./jdbc:/jdbc
+    - type: bind
+      source: ./volumes
+      target: /volumes
+    - type: bind
+      source: ./iris-prod-1
+      target: /iris-prod-1
+    - "/opt/cert:/opt/cert"
+    - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - ISC_DATA_DIRECTORY=/volumes/${iris-prod-1}
+    ports:
+      - 10001:1972
+    command: --key /iris-prod-1/key/iris.key -a /iris-prod-1/configure.sh
+
+  webgateway:
+    image: ${WEBGATEWAY}
+    init: true
+    hostname: ${WEBGATEWAY_NAME}
+    ports:
+    - ${WEBGATEWAY_PORT_HTTP}:80
+    - ${WEBGATEWAY_PORT_HTTPS}:443
+    environment:
+    - ISC_CSP_CONF_FILE=/webgateway/CSP.conf
+    - ISC_CSP_INI_FILE=/webgateway/CSP.ini
+    volumes:
+    - type: bind
+      source: ./webgateway
+      target: /webgateway
+    - "/opt/cert:/opt/cert"
 
   notebook:
     build: 

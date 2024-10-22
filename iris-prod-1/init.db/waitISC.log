@@ -1,0 +1,8 @@
+Wait time not specified; using 300
+Goal state not specified; using 'running'
+
+Waited 0 seconds for InterSystems IRIS to reach state 'running'
+Wait time not specified; using 300
+Goal state not specified; using 'running'
+
+Waited 0 seconds for InterSystems IRIS to reach state 'running'
