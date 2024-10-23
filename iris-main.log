@@ -2271,3 +2271,46 @@ Starting IRIS
 
 
 05:39:00 2024-10-23 [INFO] ...started InterSystems IRIS instance IRIS
+05:39:09 2024-10-23 [INFO] Executing command /home/irisowner/irissys/startISCAgent.sh 2188...
+05:39:10 2024-10-23 [INFO] Writing status to file: /home/irisowner/irissys/iscagent.status
+Reading configuration from file: /home/irisowner/irissys/iscagent.conf
+ISCAgent[37]: Starting
+ISCAgent[41]: Starting ApplicationServer on *:2188
+
+05:39:10 2024-10-23 [INFO] ...executed command /home/irisowner/irissys/startISCAgent.sh 2188
+05:39:10 2024-10-23 [INFO] Starting InterSystems IRIS instance IRIS...
+05:39:11 2024-10-23 [INFO] 
+Now attempting WIJ compare, /usr/irissys/mgr/IRIS.WIJ
+log: 10/23/24-05:39:10:129 (428) 0 [Generic.Event] Allocated 102MB shared memory
+
+Allocated 102MB shared memory
+16MB global buffers, 35MB routine buffers
+log: 10/23/24-05:39:10:129 (428) 0 [Generic.Event] 16MB global buffers, 35MB routine buffers, 16MB journal buffers, 2MB buffer descriptors, 16MB heap, 1MB ECP, 14MB miscellaneous
+
+log: 10/23/24-05:39:10:129 (428) 0 [SIMD] SIMD optimization level: DEFAULT
+
+log: 10/23/24-05:39:10:131 (428) 0 [Database.MountedRW] Mounted database /usr/irissys/mgr/ (SFN 0) read-write.
+
+log: 10/23/24-05:39:10:133 (428) 1 [Utility.Event] Error opening CPF file to get IRISTEMP and IRISLOCALDATA directories, using defaults
+
+log: 10/23/24-05:39:10:134 (428) 0 [Database.MountedRO] Mounted database /usr/irissys/mgr/irislib/ (SFN 1) read-only. Database label is marked read-only. 
+
+log: 10/23/24-05:39:10:135 (428) 0 [Utility.Event] File pointed to by '/app/merge.cpf' does not exist; skipping
+
+
+Now attempting WIJ compare, /usr/irissys/mgr/IRIS.WIJ
+Starting Control Process
+Global buffer setting requires attention.  Auto-selected 25% of total memory.
+Allocated 9758MB shared memory
+8011MB global buffers, 801MB routine buffers
+This copy of InterSystems IRIS has been licensed for use exclusively by:
+InterSystems IRIS Community
+Copyright (c) 1986-2024 by InterSystems Corporation
+Any other use is a violation of your license agreement
+
+1 alert(s) during startup. See messages.log for details.
+Merging IRIS, please wait...
+Starting IRIS
+
+
+05:39:11 2024-10-23 [INFO] ...started InterSystems IRIS instance IRIS
