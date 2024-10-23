@@ -10,7 +10,7 @@ fg %1
 iop --init
 
 # load production
-iop -m /app/src/python/app/settings.py
+iop -m /irisdev/app/src/python/app/settings.py
 
 # start production
 iop --start Python.Production &

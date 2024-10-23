@@ -16,9 +16,12 @@ services:
       - 10000:52773
       - 53773
     volumes:
-      - ./:/app
-      - ./init.db/:/docker-entrypoint-initdb.d/
+      - ./:/irisdev/app
+      - ./src/grongier:/usr/irissys/mgr/python/grongier
+      - ./src/iop:/usr/irissys/mgr/python/iop
+      # - ./init.db/:/docker-entrypoint-initdb.d/
       - ./jdbc:/jdbc
+    entrypoint: ["sh", "/irisdev/app/entrypoint.sh"]
 
   iris-prod-1:
     build: 

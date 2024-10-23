@@ -34,3 +34,5 @@ docker-compose up
 - [Developer Community](https://community.intersystems.com/)
 - [FR Developer Community](https://fr.community.intersystems.com/)
 - [Early Access Program](https://www.intersystems.com/early-access-program/)
+- [IRIS MIRRORING](https://github.com/SylvainGuilbaud/IRIS_mirror)
+- [IRIS EM CD PREVIEW](https://github.com/SylvainGuilbaud/IRIS_containers_prod)
