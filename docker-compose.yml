@@ -3,6 +3,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+    image: iris-dev:latest
     restart: always
     hostname: iris-dev
     container_name: iris-dev
@@ -28,7 +29,7 @@ services:
       context: ./iris-prod
       args:
       - TARGETARCH=${TARGETARCH}
-    image: iris-prod
+    image: iris-prod:latest
     restart: always
     init: true
     container_name: iris-prod-1
@@ -52,7 +53,7 @@ services:
     command: --key /iris-prod-1/key/iris.key -a /iris-prod-1/configure.sh
   
   iris-prod-2:
-    image: iris-prod
+    image: iris-prod:latest
     restart: always
     init: true
     container_name: iris-prod-2
