@@ -40,7 +40,7 @@ else
 fi
 
 # Créer les répertoires si nécessaire et copier le fichier
-for dir in "./IRIS-PROD-1/key"; do
+for dir in "./iris-prod/key"; do
     mkdir -p "$dir"  # Crée le répertoire s'il n'existe pas
     cp "$source_file" "$dir/iris.key"
     echo "Fichier $source_file copié vers $dir/iris.key"
