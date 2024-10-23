@@ -8,7 +8,8 @@ services:
     hostname: iris-dev
     container_name: iris-dev
     environment:
-      - ISC_CPF_MERGE_FILE=/app/merge.cpf
+      - ISC_CPF_MERGE_FILE=/irisdev/app/merge.cpf
+
     command: 
       --check-caps false
     ports: 
@@ -44,7 +45,7 @@ services:
     - "/opt/cert:/opt/cert"
     - "/etc/localtime:/etc/localtime:ro"
     environment:
-      - ISC_DATA_DIRECTORY=/volumes/${iris-prod-1}
+      - ISC_DATA_DIRECTORY=/volumes/iris-prod-1
     ports:
       - 10001:1972
     command: --key /iris-prod-1/key/iris.key -a /iris-prod-1/configure.sh
