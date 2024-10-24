@@ -7,7 +7,7 @@ Ce projet sert de travaux pratiques à la formation administration InterSystems 
 - [Docker](https://www.docker.com/products/docker-desktop)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-- [Visual Studio Code + extensions InterSystems](https://intersystems-community.github.io/vscode-objectscript/installation/)
+- [Visual Studio Code + extensions InterSystems](https://docs.intersystems.com/components/csp/docbook/DocBook.UI.Page.cls?KEY=GVSCO)
 - [Python](https://www.python.org/downloads/)
 - [Compte Developer Community](https://community.intersystems.com/)
 - [Login au repo Containers InterSystems](https://containers.intersystems.com/contents)
