@@ -5,14 +5,7 @@ USER root
 
 COPY cert /opt/cert
 
-RUN add-apt-repository ppa:deadsnakes/ppa -y && \
-    apt update && \
-    apt-get install -y \
-    python3.11 python3.11-venv python3.11-dev && \
-    # sudo && \
-	# /bin/echo -e ${ISC_PACKAGE_MGRUSER}\\tALL=\(ALL\)\\tNOPASSWD: ALL >> /etc/sudoers && \
-	# sudo -u ${ISC_PACKAGE_MGRUSER} sudo echo enabled passwordless sudo-ing for ${ISC_PACKAGE_MGRUSER} && \
-	chmod -R +rx /opt/cert
+RUN chmod -R +rx /opt/cert
 
 USER ${ISC_PACKAGE_MGRUSER}
 WORKDIR /home/irisowner/dev
@@ -25,11 +18,9 @@ ENV IRISNAMESPACE=USER
 
 COPY key/iris.key /usr/irissys/mgr/iris.key
 
+RUN mkdir -p /home/irisowner/keys 
+
 RUN --mount=type=bind,src=.,dst=. \
-    mkdir -p /home/irisowner/keys && \
-	python3.11 -m venv ~/iris_env && \
-	. ~/iris_env/bin/activate && \
-    pip3 install -r requirements.txt && \
     iris start IRIS && \
     iris session IRIS < iris-sys.script && \
     iris merge IRIS merge.cpf && \

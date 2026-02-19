@@ -15,9 +15,6 @@
     set credentialsName = "interop"
     do ##class(Ens.Config.Credentials).SetCredential(credentialsName,"interop","SYS",1)
 
-    #; set ^Ens.Config.DefaultSettingsD("APP.production","BO_SYNC_OSCAR_FHIR","*","HTTPServer")=$lb("iris-prod-1","",0)
-    #; set ^Ens.Config.DefaultSettingsD("APP.production","BO_SYNC_OSCAR_FHIR","*","SSLCheckServerIdentity")=$lb("1","",0)
-
     zpm "install pex-embbeded-python"
 
     zn "%sys"
