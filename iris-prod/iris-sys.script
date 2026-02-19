@@ -27,7 +27,6 @@
     zpm "install iris-apipub" 
     zpm "install classexplorer" 
     zpm "install openapi-client-gen"
-    zpm "install pex-embbeded-python"
     zpm "install readonly-interoperability"
     zpm "enable -map -globally"
 

@@ -4,26 +4,21 @@ services:
       args:
         IMAGE: ${IMAGE_IRIS_DEV_PREVIEW}
       context: iris-dev
+    image: iris-dev  
     restart: always
     hostname: ${iris-dev}
     container_name: ${iris-dev}
     environment:
       - TZ=$TZ
-      - ISC_CPF_MERGE_FILE=/irisdev/app/merge.cpf
       - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_DEV}
-    # command: 
-    #   --check-caps false
     ports: 
       - 1972
       - 10000:52773
       - 53773
     volumes:
       - ./iris-dev:/irisdev/app
-      # - ./init.db/:/docker-entrypoint-initdb.d/
       - ./jdbc:/jdbc
-      - iris-dev-data:/iris-dev-data
-    entrypoint: ["sh", "/irisdev/app/entrypoint.sh"]
-
+      - ./iris-dev-data:${ISC_DATA_DIRECTORY_DEV}
   iris-prod-1:
     build: 
       args:
@@ -37,7 +32,7 @@ services:
     volumes:
     - ./iris-prod:/irisdev/app
     - ./jdbc:/jdbc
-    - iris-prod-1-data:${ISC_DATA_DIRECTORY_PROD_1}
+    - ./iris-prod-1-data:${ISC_DATA_DIRECTORY_PROD_1}
     - type: bind
       source: ./iris-prod
       target: /iris-prod-1
@@ -51,32 +46,32 @@ services:
       - 10001:1972
     command: --key /iris-prod-1/key/iris.key -a /iris-prod-1/configure.sh
   
-  # iris-prod-2:
-  #   build: 
-  #     args:
-  #       IMAGE: ${IMAGE_IRIS_PROD_PREVIEW}
-  #     context: iris-prod
-  #   image: iris-prod-2
-  #   restart: always
-  #   init: true
-  #   container_name: ${iris-prod-2}
-  #   hostname: ${iris-prod-2}
-  #   volumes:
-  #   - ./iris-prod:/irisdev/app
-  #   - ./jdbc:/jdbc
-  #   - iris-prod-2-data:${ISC_DATA_DIRECTORY_PROD_2}
-  #   - type: bind
-  #     source: ./iris-prod
-  #     target: /iris-prod-2
-  #   - type: bind
-  #     source: ./webgateway/cert
-  #     target: /opt/cert
-  #   environment:
-  #     - TZ=$TZ
-  #     - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_2}
-  #   ports:
-  #     - 10002:1972
-  #   command: --key /iris-prod-2/key/iris.key -a /iris-prod-2/configure.sh
+  iris-prod-2:
+    build: 
+      args:
+        IMAGE: ${IMAGE_IRIS_PROD_PREVIEW}
+      context: iris-prod
+    image: iris-prod-2
+    restart: always
+    init: true
+    container_name: ${iris-prod-2}
+    hostname: ${iris-prod-2}
+    volumes:
+    - ./iris-prod:/irisdev/app
+    - ./jdbc:/jdbc
+    - ./iris-prod-2-data:${ISC_DATA_DIRECTORY_PROD_2}
+    - type: bind
+      source: ./iris-prod
+      target: /iris-prod-2
+    - type: bind
+      source: ./webgateway/cert
+      target: /opt/cert
+    environment:
+      - TZ=$TZ
+      - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_2}
+    ports:
+      - 10002:1972
+    command: --key /iris-prod-2/key/iris.key -a /iris-prod-2/configure.sh
 
   webgateway:
     image: ${WEBGATEWAY}
@@ -97,6 +92,7 @@ services:
       target: /opt/cert
 
   notebook:
+    image: notebook
     build: 
       context: notebook
     ports:

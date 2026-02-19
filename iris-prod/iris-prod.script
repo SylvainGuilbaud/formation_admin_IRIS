@@ -15,8 +15,6 @@
     set credentialsName = "interop"
     do ##class(Ens.Config.Credentials).SetCredential(credentialsName,"interop","SYS",1)
 
-    zpm "install pex-embbeded-python"
-
     zn "%sys"
     set appName="/app"
     set crud("NameSpace") = "APP"
@@ -30,43 +28,5 @@
     set step="Install " _  appName
     if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
 
-    set namespace = "IRISAPP"
-    set dbname = namespace_"X0001R"
-    set step="DismountDatabase " _  dbname
-    set ^["USER"]TRACE($zdt($now(),3,,6),step)="dismounting " _ dbname
-    set sc =  ##class(SYS.Database).DismountDatabase("/usr/irissys/mgr/" _ dbname)
-    set step="DismountDatabase " _  dbname
-    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
-
-    set step="EncryptDatabase " _  dbname
-    set ^["USER"]TRACE($zdt($now(),3,,6),step)="encrypting " _ dbname
-    set sc =  ##class(SYS.Database).EncryptDatabase("/usr/irissys/mgr/" _ dbname)
-    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
-
-    set step="MountDatabase " _  dbname
-    set ^["USER"]TRACE($zdt($now(),3,,6),step)="mounting " _ dbname
-    set sc =  ##class(SYS.Database).MountDatabase("/usr/irissys/mgr/" _ dbname)
-    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
-
-    set dbname = namespace_"X0001V" 
-    set step="DismountDatabase " _  dbname
-    set ^["USER"]TRACE($zdt($now(),3,,6),step)="dismounting " _ dbname
-    set sc =  ##class(SYS.Database).DismountDatabase("/usr/irissys/mgr/" _ dbname)
-    set step="DismountDatabase " _  dbname
-    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
-
-    set step="EncryptDatabase " _  dbname
-    set ^["USER"]TRACE($zdt($now(),3,,6),step)="encrypting " _ dbname
-    set sc =  ##class(SYS.Database).EncryptDatabase("/usr/irissys/mgr/" _ dbname)
-    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
-
-    set step="MountDatabase " _  dbname
-    set ^["USER"]TRACE($zdt($now(),3,,6),step)="mounting " _ dbname
-    set sc =  ##class(SYS.Database).MountDatabase("/usr/irissys/mgr/" _ dbname)
-    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
- 
-    set ^["USER"]TRACE($zdt($now(),3,,6),"BUILD END")="IRISAPP"
-    set ^["USER"]TRACE("BUILD DURATION")=##class(common.utils).hms($num($zh-^["USER"]TRACE("BUILD START"),0))
-    set ^["USER"]VERSION = $zdt($now(),3,,6)
-
+    
     halt

@@ -4,3 +4,7 @@
 **/*.key
 **/out
 **/archive/*
+iris-dev-data
+iris-prod-1-data
+iris-prod-2-data
+volumes

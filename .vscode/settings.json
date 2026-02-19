@@ -25,17 +25,7 @@
         "SWAGGER-UI": "http://localhost:18880/swagger-ui/index.html#/",
         "SWAGGER-UI SEC": "https://localhost/swagger-ui/index.html#/"
       }
-    },
-    "intersystems.servers": {
-			"devcontainer": {
-				"username": "SuperUser",
-				"password": "SYS",
-				"webServer": {
-					"scheme": "http",
-					"host": "127.0.0.1",
-					"port": 52773
-				},
-			},
+    }
 		},
     "sqltools.connections": [
       {
