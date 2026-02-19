@@ -10,7 +10,7 @@
       "password": "SYS",
       "host": "localhost",
       "port": 10000,
-      "active": true,
+      "active": false,
       "links": {
         "IRIS ADMIN DEV": "http://${host}:${port}/csp/sys/%25CSP.Portal.Home.zen",
         "IRIS SQL DEV": "http://${host}:${port}/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=IRISAPP",

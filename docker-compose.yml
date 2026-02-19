@@ -1,53 +1,52 @@
 services:
   iris-dev:
     build: 
-      context: .
+      context: iris-dev
       dockerfile: Dockerfile
     image: iris-dev:latest
     restart: always
-    hostname: iris-dev
-    container_name: iris-dev
+    hostname: ${iris-dev}
+    container_name: ${iris-dev}
     environment:
+      - TZ=Europe/Paris
       - ISC_CPF_MERGE_FILE=/irisdev/app/merge.cpf
-
-    command: 
-      --check-caps false
+      - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_DEV}
+    # command: 
+    #   --check-caps false
     ports: 
       - 1972
       - 10000:52773
       - 53773
     volumes:
-      - ./:/irisdev/app
-      - ./src/grongier:/usr/irissys/mgr/python/grongier
-      - ./src/iop:/usr/irissys/mgr/python/iop
+      - ./iris-dev:/irisdev/app
       # - ./init.db/:/docker-entrypoint-initdb.d/
       - ./jdbc:/jdbc
+      - iris-dev-data:/iris-dev-data
     entrypoint: ["sh", "/irisdev/app/entrypoint.sh"]
 
   iris-prod-1:
     build: 
-      context: ./iris-prod
+      context: iris-prod
       args:
       - TARGETARCH=${TARGETARCH}
     image: iris-prod:latest
     restart: always
     init: true
-    container_name: iris-prod-1
-    hostname: iris-prod-1
+    container_name: ${iris-prod-1}
+    hostname: ${iris-prod-1}
     volumes:
     - ./iris-prod:/irisdev/app
-    - ./iris-prod/init.db/:/docker-entrypoint-initdb.d/
+    # - ./iris-prod/init.db/:/docker-entrypoint-initdb.d/
     - ./jdbc:/jdbc
-    - type: bind
-      source: ./volumes
-      target: /volumes
+    - iris-prod-1-data:${ISC_DATA_DIRECTORY_PROD_1}
     - type: bind
       source: ./iris-prod
       target: /iris-prod-1
     - "/opt/cert:/opt/cert"
     - "/etc/localtime:/etc/localtime:ro"
     environment:
-      - ISC_DATA_DIRECTORY=/volumes/iris-prod-1
+      - TZ=Europe/Paris
+      - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_1}   
     ports:
       - 10001:1972
     command: --key /iris-prod-1/key/iris.key -a /iris-prod-1/configure.sh
@@ -56,21 +55,20 @@ services:
     image: iris-prod:latest
     restart: always
     init: true
-    container_name: iris-prod-2
-    hostname: iris-prod-2
+    container_name: ${iris-prod-2}
+    hostname: ${iris-prod-2}
     volumes:
     - ./iris-prod:/irisdev/app
     - ./iris-prod/init.db/:/docker-entrypoint-initdb.d/
     - ./jdbc:/jdbc
-    - type: bind
-      source: ./volumes
-      target: /volumes
+    - iris-prod-2-data:${ISC_DATA_DIRECTORY_PROD_2}
     - type: bind
       source: ./iris-prod
       target: /iris-prod-2
     - "/opt/cert:/opt/cert"
     - "/etc/localtime:/etc/localtime:ro"
     environment:
+      - TZ=Europe/Paris
       - ISC_DATA_DIRECTORY=/volumes/iris-prod-2
     ports:
       - 10002:1972
@@ -118,3 +116,8 @@ services:
         interval: 30s
         timeout: 30s
         retries: 3
+
+volumes:
+  iris-dev-data:
+  iris-prod-1-data:
+  iris-prod-2-data:
