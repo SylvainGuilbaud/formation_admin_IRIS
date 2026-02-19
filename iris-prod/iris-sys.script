@@ -15,14 +15,21 @@
     set step="Load common package "
     if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
    
-    //set r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="ISC.FeatureTracker.SSL.Config" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
-    set sc = $SYSTEM.OBJ.Load("/home/irisowner/dev/zpm-0.7.2.xml","ck")
+    set r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="ISC.FeatureTracker.SSL.Config" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
     set step="Install IPM"
     if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+
+    zpm "repo -r -n registry -reset-defaults"
+    zpm "enable -community"
     zpm "install webterminal"
+    zpm "install objectscript-json-trace-viewer"
+    zpm "install swagger-ui" 
+    zpm "install iris-apipub" 
     zpm "install classexplorer" 
-    zpm "install swagger-ui"
+    zpm "install openapi-client-gen"
     zpm "install pex-embbeded-python"
+    zpm "install readonly-interoperability"
+    zpm "enable -map -globally"
 
     zn "%SYS"
     do ##class(%SYSTEM.CSP).SetConfig("CSPConfigName","iris-prod-1")

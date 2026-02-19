@@ -1,11 +1,9 @@
-ARG IMAGE=containers.intersystems.com/intersystems/iris:2024.2
 ARG IMAGE=containers.intersystems.com/intersystems/iris:latest-cd
 FROM $IMAGE
 
 USER root
 
 COPY cert /opt/cert
-
 
 RUN add-apt-repository ppa:deadsnakes/ppa -y && \
     apt update && \
@@ -19,15 +17,11 @@ RUN add-apt-repository ppa:deadsnakes/ppa -y && \
 USER ${ISC_PACKAGE_MGRUSER}
 WORKDIR /home/irisowner/dev
 
-ARG TARGETARCH=${TARGETARCH}
-
 ENV PYTHON_PATH=/usr/irissys/bin/irispython
 ENV SRC_PATH=/opt/irisapp
 ENV IRISUSERNAME=SuperUser
 ENV IRISPASSWORD=SYS
 ENV IRISNAMESPACE=USER
-ENV JAVA_HOME /usr/lib/jvm/temurin-8-jdk-${TARGETARCH}
-ENV PATH "/home/irisowner/iris_env/bin:/home/irisowner/.local/bin:/usr/irissys/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/irisowner/bin:${JAVA_HOME}/bin:${PATH}"
 
 COPY key/iris.key /usr/irissys/mgr/iris.key
 

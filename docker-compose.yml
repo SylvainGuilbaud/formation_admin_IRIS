@@ -1,14 +1,14 @@
 services:
   iris-dev:
     build: 
+      args:
+        IMAGE: ${IMAGE_IRIS_DEV_PREVIEW}
       context: iris-dev
-      dockerfile: Dockerfile
-    image: iris-dev:latest
     restart: always
     hostname: ${iris-dev}
     container_name: ${iris-dev}
     environment:
-      - TZ=Europe/Paris
+      - TZ=$TZ
       - ISC_CPF_MERGE_FILE=/irisdev/app/merge.cpf
       - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_DEV}
     # command: 
@@ -26,10 +26,9 @@ services:
 
   iris-prod-1:
     build: 
-      context: iris-prod
       args:
-      - TARGETARCH=${TARGETARCH}
-    image: iris-prod:latest
+        IMAGE: ${IMAGE_IRIS_PROD_PREVIEW}
+      context: iris-prod
     restart: always
     init: true
     container_name: ${iris-prod-1}
@@ -43,33 +42,33 @@ services:
       source: ./iris-prod
       target: /iris-prod-1
     - "/opt/cert:/opt/cert"
-    - "/etc/localtime:/etc/localtime:ro"
     environment:
-      - TZ=Europe/Paris
+      - TZ=$TZ
       - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_1}   
     ports:
       - 10001:1972
     command: --key /iris-prod-1/key/iris.key -a /iris-prod-1/configure.sh
   
   iris-prod-2:
-    image: iris-prod:latest
+    build: 
+      args:
+        IMAGE: ${IMAGE_IRIS_PROD_PREVIEW}
+      context: iris-prod
     restart: always
     init: true
     container_name: ${iris-prod-2}
     hostname: ${iris-prod-2}
     volumes:
     - ./iris-prod:/irisdev/app
-    - ./iris-prod/init.db/:/docker-entrypoint-initdb.d/
     - ./jdbc:/jdbc
     - iris-prod-2-data:${ISC_DATA_DIRECTORY_PROD_2}
     - type: bind
       source: ./iris-prod
       target: /iris-prod-2
     - "/opt/cert:/opt/cert"
-    - "/etc/localtime:/etc/localtime:ro"
     environment:
-      - TZ=Europe/Paris
-      - ISC_DATA_DIRECTORY=/volumes/iris-prod-2
+      - TZ=$TZ
+      - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_2}
     ports:
       - 10002:1972
     command: --key /iris-prod-2/key/iris.key -a /iris-prod-2/configure.sh
