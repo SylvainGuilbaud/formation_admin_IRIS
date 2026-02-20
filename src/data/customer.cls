@@ -1,11 +1,19 @@
 Class data.customer Extends (%Persistent, %Populate)
 {
 
+Parameter ROWLEVELSECURITY = 1;
+
+ClassMethod %SecurityPolicy(Country As %String) As %String [ SqlProc ]
+{
+    return "%All,"_Country
+    //RETURN "USA,Canada,UK,France,Germany,Italy,Spain,Portugal,Netherlands,Belgium,Switzerland,Austria,Sweden,Norway,Denmark,Finland,Poland,CzechRepublic,Hungary,Romania,Bulgaria,Greece,Turkey,Russia,China,Japan,SouthKorea,India,Brazil,Argentina,Mexico,Australia,NewZealand,SouthAfrica,Egypt,Morocco,Nigeria,Kenya,SaudiArabia,UAE,Israel,Singapore,Malaysia,Indonesia,Thailand,Vietnam,Philippines"
+}
+
 /// Customer first name
-Property FirstName As %String(MAXLEN = 100) [ Required ];
+Property FirstName As %String(MAXLEN = 100, POPSPEC = "FirstName()") [ Required ];
 
 /// Customer last name
-Property LastName As %String(MAXLEN = 100) [ Required ];
+Property LastName As %String(MAXLEN = 100, POPSPEC = "LastName()") [ Required ];
 
 /// Customer email address
 Property Email As %String(MAXLEN = 255) [ Required ];
@@ -26,10 +34,10 @@ Property City As %String(MAXLEN = 100);
 Property State As %String(MAXLEN = 100);
 
 /// Customer postal code
-Property PostalCode As %String(MAXLEN = 20);
+Property PostalCode As %String(MAXLEN = 20, POPSPEC = "USZip()");
 
 /// Customer country
-Property Country As %String(MAXLEN = 100);
+Property Country As %String(MAXLEN = 100, POPSPEC = "##class(data.customer).Country()");
 
 /// Customer creation date
 Property CreatedAt As %TimeStamp [ InitialExpression = {$ZDATETIME($HOROLOG, 3)} ];
@@ -42,6 +50,48 @@ Index EmailIndex On Email [ Unique ];
 Index LastNameIndex On LastName;
 
 Index CityIndex On City;
+
+/// Description
+ClassMethod Email(ByRef nb As %Integer) As %Status
+{
+    set nb = 0,sc = $$$OK
+   &sql(UPDATE data.customer SET Email = LOWER(firstname) || '.' || LOWER(lastname) || '@' || LOWER(City) || '.com')
+   if SQLCODE = 0 {
+       set nb = %ROWCOUNT
+
+   } elseif SQLCODE = 100 {
+        set errorMessage = "NO DATA UPDATED"
+        set sc = $system.Status.Error(5001, errorMessage)
+   }
+   else {
+        set errorMessage = %msg
+        set sc = $system.Status.Error(5001, errorMessage)
+   }
+   return sc
+}
+
+/// Description
+ClassMethod pop(nb As %Integer = 10, delete As %Boolean = 0) As %Integer
+{
+    if delete {
+        do ..%KillExtent()
+    }
+    Set nb = ..Populate(nb)
+    set sc = ..Email(.nbUpdated)
+     if $$$ISERR(sc) {
+        set errorMessage = $system.Status.GetErrorText(sc)
+        write "Error updating emails: ", errorMessage, !
+    } else {
+        write "Emails updated successfully for ", nbUpdated, " customers.", !
+    }
+    Return nb
+}
+
+ClassMethod Country() As %String
+{
+ s t1=$lb("USA","Canada","UK","France","Germany","Italy","Spain","Portugal","Netherlands","Belgium","Switzerland","Austria","Sweden","Norway","Denmark","Finland","Poland","Czech Republic","Hungary","Romania","Bulgaria","Greece","Turkey","Russia","China","Japan","South Korea","India","Brazil","Argentina","Mexico","Australia","New Zealand","South Africa","Egypt","Morocco","Nigeria","Kenya","Saudi Arabia","UAE","Israel","Singapore","Malaysia","Indonesia","Thailand","Vietnam","Philippines")
+ return $li(t1,$$$PRand($ll(t1))+1)
+}
 
 Storage Default
 {
@@ -84,6 +134,9 @@ Storage Default
 </Value>
 <Value name="13">
 <Value>IsActive</Value>
+</Value>
+<Value name="14">
+<Value>%READERLIST</Value>
 </Value>
 </Data>
 <DataLocation>^data.customerD</DataLocation>
