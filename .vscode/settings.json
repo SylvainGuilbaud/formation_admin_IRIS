@@ -5,7 +5,7 @@
         "iris.script": "objectscript"
       },
     "objectscript.conn" :{
-      "ns": "IRISAPP",
+      "ns": "USER",
       "username": "SuperUser",
       "password": "SYS",
       "docker-compose": {
@@ -17,7 +17,7 @@
       "active": true,
       "links": {
         "IRIS ADMIN DEV": "http://${host}:${port}/csp/sys/%25CSP.Portal.Home.zen",
-        "IRIS SQL DEV": "http://${host}:${port}/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=IRISAPP",
+        "IRIS SQL DEV": "http://${host}:${port}/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=USER",
         "IRIS Production DEV": "http://${host}:${port}/csp/irisapp/EnsPortal.ProductionConfig.zen?PRODUCTION=dc.Python.Production",
         "Notebook": "http://${host}:8889",
         "IRIS ADMIN PROD 1": "http://${host}:18880/iris-prod-1/csp/sys/%25CSP.Portal.Home.zen",
