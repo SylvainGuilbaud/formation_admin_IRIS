@@ -6,8 +6,8 @@ services:
       context: iris-dev
     image: iris-dev  
     restart: always
-    hostname: ${iris-dev}
-    container_name: ${iris-dev}
+    hostname: iris-dev
+    container_name: iris-dev
     environment:
       - TZ=$TZ
       - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_DEV}
@@ -18,7 +18,7 @@ services:
     volumes:
       - ./iris-dev:/irisdev/app
       - ./jdbc:/jdbc
-      - ./iris-dev-data:${ISC_DATA_DIRECTORY_DEV}
+      - ./databases/iris-dev:${ISC_DATA_DIRECTORY_DEV}
   iris-prod-1:
     build: 
       args:
@@ -27,12 +27,12 @@ services:
     image: iris-prod-1
     restart: always
     init: true
-    container_name: ${iris-prod-1}
-    hostname: ${iris-prod-1}
+    container_name: iris-prod-1
+    hostname: iris-prod-1
     volumes:
     - ./iris-prod:/irisdev/app
     - ./jdbc:/jdbc
-    - ./iris-prod-1-data:${ISC_DATA_DIRECTORY_PROD_1}
+    - ./databases/iris-prod-1:${ISC_DATA_DIRECTORY_PROD_1}
     - type: bind
       source: ./iris-prod
       target: /iris-prod-1
@@ -54,12 +54,12 @@ services:
     image: iris-prod-2
     restart: always
     init: true
-    container_name: ${iris-prod-2}
-    hostname: ${iris-prod-2}
+    container_name: iris-prod-2
+    hostname: iris-prod-2
     volumes:
     - ./iris-prod:/irisdev/app
     - ./jdbc:/jdbc
-    - ./iris-prod-2-data:${ISC_DATA_DIRECTORY_PROD_2}
+    - ./databases/iris-prod-2:${ISC_DATA_DIRECTORY_PROD_2}
     - type: bind
       source: ./iris-prod
       target: /iris-prod-2
@@ -108,7 +108,7 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - ./postgreSQL:/docker-entrypoint-initdb.d/
-      - ./volumes/postgreSQL:/var/lib/postgresql/data
+      - ./databases/postgreSQL:/var/lib/postgresql/data
     ports:
       - 52004:5432
     restart: unless-stopped
@@ -118,7 +118,7 @@ services:
         timeout: 30s
         retries: 3
 
-volumes:
-  iris-dev-data:
-  iris-prod-1-data:
-  iris-prod-2-data:
+# volumes:
+#   databases/iris-dev:
+#   databases/iris-prod-1:
+#   databases/iris-prod-2:
