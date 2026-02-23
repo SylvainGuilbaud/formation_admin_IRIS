@@ -2,7 +2,9 @@
 
 # External backup script for IRIS-DEV
 # Uses iris freeze/thaw to ensure data consistency during backup
-CONTAINER_NAME="iris-dev"
+
+CONTAINER_NAME="${1:-iris-dev}"
+
 INSTANCE="iris"
 SOURCE_DIR="./databases/"${CONTAINER_NAME}
 BACKUP_DIR="./backup/"${CONTAINER_NAME}
