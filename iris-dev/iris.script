@@ -56,4 +56,6 @@
 
     set sc = $SYSTEM.OBJ.Import("/home/irisowner/dev/src","ck",,1)
 
+    do ##class(fhirtemplate.Setup).SetupFHIRServer("IRISAPP")
+    
     halt

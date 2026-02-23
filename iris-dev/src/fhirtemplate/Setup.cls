@@ -46,7 +46,7 @@ ClassMethod SetupFHIRServer(ns) As %Status
 
     //
     
-    set dir=$System.Util.ManagerDirectory()_"test-data-fhir"
+    set dir="/home/irisowner/dev/data/fhir/"
     write !," ====== Load test data in "_ns_" from "_dir
     set st=##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(dir, "FHIRServer", appKey)
     if 'st write $System.Status.GetErrorText(st)
