@@ -12,9 +12,8 @@ services:
       - TZ=$TZ
       - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_DEV}
     ports: 
-      - 1972
+      - 11972:1972
       - 10000:52773
-      - 53773
     volumes:
       - ./iris-dev:/irisdev/app
       - ./jdbc:/jdbc
