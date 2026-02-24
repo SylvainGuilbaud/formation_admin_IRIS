@@ -11,6 +11,7 @@ services:
     environment:
       - TZ=$TZ
       - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_TRAINING}
+      - ISC_CPF_MERGE_FILE=/merge.cpf
     ports: 
       - 11972:1972
       - 10000:52773
@@ -18,6 +19,10 @@ services:
       - ./iris-training:/irisdev/app
       - ./jdbc:/jdbc
       - ./databases/iris-training:${ISC_DATA_DIRECTORY_TRAINING}
+      - ./journal:/journal
+      - ./journal2:/journal2
+      - ./WIJ:/WIJ
+      - ./merge.cpf:/merge.cpf
 
   # iris-prod-1:
   #   build: 

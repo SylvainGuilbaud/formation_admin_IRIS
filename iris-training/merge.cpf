@@ -1,3 +1,10 @@
+[config]
+wijdir=/WIJ
+
+[Journal]    
+CurrentDirectory=/journal
+AlternateDirectory=/journal2
+
 [Startup]
 SystemMode=TEST
 

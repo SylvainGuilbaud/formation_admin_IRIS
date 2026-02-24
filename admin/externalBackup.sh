@@ -11,6 +11,9 @@ BACKUP_DIR="./backup/"${CONTAINER_NAME}
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 BACKUP_DEST="${BACKUP_DIR}/${TIMESTAMP}"
 LOG_FILE="${BACKUP_DIR}/${CONTAINER_NAME}-backup-${TIMESTAMP}.log"
+WIJ_DIR="./WIJ"
+JOURNAL_DIR="./journal"
+JOURNAL2_DIR="./journal2"
 
 # Create backup directory if it doesn't exist
 mkdir -p "${BACKUP_DIR}"
@@ -30,6 +33,9 @@ echo "$(date) - IRIS instance frozen successfully" | tee -a "${LOG_FILE}"
 echo "$(date) - Copying databases from ${SOURCE_DIR} to ${BACKUP_DEST}" | tee -a "${LOG_FILE}"
 mkdir -p "${BACKUP_DEST}"
 cp -R "${SOURCE_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
+cp -R "${WIJ_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
+cp -R "${JOURNAL_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
+cp -R "${JOURNAL2_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
 COPY_STATUS=$?
 
 # Step 3: Thaw IRIS instance (always executed, even if copy failed)
