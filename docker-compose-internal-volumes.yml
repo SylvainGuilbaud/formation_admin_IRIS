@@ -17,7 +17,7 @@ services:
     volumes:
       - ./iris-training:/irisdev/app
       - ./jdbc:/jdbc
-      - ./databases/iris-training:${ISC_DATA_DIRECTORY_TRAINING}
+      - databases/iris-training:${ISC_DATA_DIRECTORY_TRAINING}
 
   # iris-prod-1:
   #   build: 
@@ -118,7 +118,7 @@ services:
   #       timeout: 30s
   #       retries: 3
 
-# volumes:
-#   databases/iris-training:
+volumes:
+  databases/iris-training:
 #   databases/iris-prod-1:
 #   databases/iris-prod-2:

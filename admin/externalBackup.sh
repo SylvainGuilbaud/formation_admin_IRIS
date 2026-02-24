@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# External backup script for IRIS-DEV
+# External backup script for iris-training
 # Uses iris freeze/thaw to ensure data consistency during backup
 
-CONTAINER_NAME="${1:-iris-dev}"
+CONTAINER_NAME="${1:-iris-training}"
 
 INSTANCE="iris"
 SOURCE_DIR="./databases/"${CONTAINER_NAME}

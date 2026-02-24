@@ -38,8 +38,8 @@ ClassMethod SetupFHIRServer(ns As %String, dir As %String = "/home/irisowner/dev
     w cspConfig.%Save()
     //
 
-    do $system.OBJ.Import(dir_"/src","*.cls","cdk",.errors,1)
-    zw $classmethod("Ens.Director", "SetAutoStart", "IRISAPPPKG.FoundationProduction", 0)
+    do $system.OBJ.Import(dir_"/src","cdk",.errors,1)
+    zw $classmethod("Ens.Director", "SetAutoStart", "IRISAPP.production", 0)
 
     //
     
