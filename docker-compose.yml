@@ -18,77 +18,78 @@ services:
       - ./iris-dev:/irisdev/app
       - ./jdbc:/jdbc
       - ./databases/iris-dev:${ISC_DATA_DIRECTORY_DEV}
-  iris-prod-1:
-    build: 
-      args:
-        IMAGE: ${IMAGE_IRIS_PROD_PREVIEW}
-      context: iris-prod
-    image: iris-prod-1
-    restart: always
-    init: true
-    container_name: iris-prod-1
-    hostname: iris-prod-1
-    volumes:
-    - ./iris-prod:/irisdev/app
-    - ./jdbc:/jdbc
-    - ./databases/iris-prod-1:${ISC_DATA_DIRECTORY_PROD_1}
-    - type: bind
-      source: ./iris-prod
-      target: /iris-prod-1
-    - type: bind
-      source: ./webgateway/cert
-      target: /opt/cert
-    environment:
-      - TZ=$TZ
-      - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_1}   
-    ports:
-      - 10001:1972
-    command: --key /iris-prod-1/key/iris.key -a /iris-prod-1/configure.sh
+      
+  # iris-prod-1:
+  #   build: 
+  #     args:
+  #       IMAGE: ${IMAGE_IRIS_PROD_PREVIEW}
+  #     context: iris-prod
+  #   image: iris-prod-1
+  #   restart: always
+  #   init: true
+  #   container_name: iris-prod-1
+  #   hostname: iris-prod-1
+  #   volumes:
+  #   - ./iris-prod:/irisdev/app
+  #   - ./jdbc:/jdbc
+  #   - ./databases/iris-prod-1:${ISC_DATA_DIRECTORY_PROD_1}
+  #   - type: bind
+  #     source: ./iris-prod
+  #     target: /iris-prod-1
+  #   - type: bind
+  #     source: ./webgateway/cert
+  #     target: /opt/cert
+  #   environment:
+  #     - TZ=$TZ
+  #     - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_1}   
+  #   ports:
+  #     - 10001:1972
+  #   command: --key /iris-prod-1/key/iris.key -a /iris-prod-1/configure.sh
   
-  iris-prod-2:
-    build: 
-      args:
-        IMAGE: ${IMAGE_IRIS_PROD_PREVIEW}
-      context: iris-prod
-    image: iris-prod-2
-    restart: always
-    init: true
-    container_name: iris-prod-2
-    hostname: iris-prod-2
-    volumes:
-    - ./iris-prod:/irisdev/app
-    - ./jdbc:/jdbc
-    - ./databases/iris-prod-2:${ISC_DATA_DIRECTORY_PROD_2}
-    - type: bind
-      source: ./iris-prod
-      target: /iris-prod-2
-    - type: bind
-      source: ./webgateway/cert
-      target: /opt/cert
-    environment:
-      - TZ=$TZ
-      - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_2}
-    ports:
-      - 10002:1972
-    command: --key /iris-prod-2/key/iris.key -a /iris-prod-2/configure.sh
+  # iris-prod-2:
+  #   build: 
+  #     args:
+  #       IMAGE: ${IMAGE_IRIS_PROD_PREVIEW}
+  #     context: iris-prod
+  #   image: iris-prod-2
+  #   restart: always
+  #   init: true
+  #   container_name: iris-prod-2
+  #   hostname: iris-prod-2
+  #   volumes:
+  #   - ./iris-prod:/irisdev/app
+  #   - ./jdbc:/jdbc
+  #   - ./databases/iris-prod-2:${ISC_DATA_DIRECTORY_PROD_2}
+  #   - type: bind
+  #     source: ./iris-prod
+  #     target: /iris-prod-2
+  #   - type: bind
+  #     source: ./webgateway/cert
+  #     target: /opt/cert
+  #   environment:
+  #     - TZ=$TZ
+  #     - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_2}
+  #   ports:
+  #     - 10002:1972
+  #   command: --key /iris-prod-2/key/iris.key -a /iris-prod-2/configure.sh
 
-  webgateway:
-    image: ${WEBGATEWAY}
-    init: true
-    hostname: ${WEBGATEWAY_NAME}
-    ports:
-    - ${WEBGATEWAY_PORT_HTTP}:80
-    - ${WEBGATEWAY_PORT_HTTPS}:443
-    environment:
-    - ISC_CSP_CONF_FILE=/webgateway/CSP.conf
-    - ISC_CSP_INI_FILE=/webgateway/CSP.ini
-    volumes:
-    - type: bind
-      source: ./webgateway
-      target: /webgateway
-    - type: bind
-      source: ./webgateway/cert
-      target: /opt/cert
+  # webgateway:
+  #   image: ${WEBGATEWAY}
+  #   init: true
+  #   hostname: ${WEBGATEWAY_NAME}
+  #   ports:
+  #   - ${WEBGATEWAY_PORT_HTTP}:80
+  #   - ${WEBGATEWAY_PORT_HTTPS}:443
+  #   environment:
+  #   - ISC_CSP_CONF_FILE=/webgateway/CSP.conf
+  #   - ISC_CSP_INI_FILE=/webgateway/CSP.ini
+  #   volumes:
+  #   - type: bind
+  #     source: ./webgateway
+  #     target: /webgateway
+  #   - type: bind
+  #     source: ./webgateway/cert
+  #     target: /opt/cert
 
   notebook:
     image: notebook
@@ -100,22 +101,22 @@ services:
       - ./notebook/Notebooks:/Notebooks
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
 
-  postgres:
-    container_name: training-postgres
-    image: postgres:latest
-    environment:
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - ./postgreSQL:/docker-entrypoint-initdb.d/
-      - ./databases/postgreSQL:/var/lib/postgresql/data
-    ports:
-      - 52004:5432
-    restart: unless-stopped
-    healthcheck:
-        test: ["CMD", "pg_isready", "-U", "postgres"]
-        interval: 30s
-        timeout: 30s
-        retries: 3
+  # postgres:
+  #   container_name: training-postgres
+  #   image: postgres:latest
+  #   environment:
+  #     POSTGRES_PASSWORD: postgres
+  #   volumes:
+  #     - ./postgreSQL:/docker-entrypoint-initdb.d/
+  #     - ./databases/postgreSQL:/var/lib/postgresql/data
+  #   ports:
+  #     - 52004:5432
+  #   restart: unless-stopped
+  #   healthcheck:
+  #       test: ["CMD", "pg_isready", "-U", "postgres"]
+  #       interval: 30s
+  #       timeout: 30s
+  #       retries: 3
 
 # volumes:
 #   databases/iris-dev:
