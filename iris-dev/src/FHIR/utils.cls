@@ -1,19 +1,16 @@
-Class fhirtemplate.Setup
+Class FHIR.utils
 {
 
-ClassMethod SetupFHIRServer(ns) As %Status
+ClassMethod SetupFHIRServer(ns As %String, dir As %String = "/home/irisowner/dev") As %Status
 {
     zn "HSLIB"
     set namespace=ns
     Set appKey = "/" _ $zcvt(ns,"L") _ "/fhir/r4"
-    #; Set appKey = "/fhir/r4"
     Set strategyClass = "HS.FHIRServer.Storage.Json.InteractionsStrategy"
     set metadataPackages = $lb("hl7.fhir.r4.core@4.0.1")
     Set metadataConfigKey = "HL7v40"
-    ;set importdir="/opt/irisapp/src"
 
     //Install a Foundation namespace and change to it
-    //Do ##class(HS.HC.Util.Installer).InstallFoundation(namespace)
     Do ##class(HS.Util.Installer.Foundation).Install(namespace)
 
     zn namespace
@@ -41,14 +38,14 @@ ClassMethod SetupFHIRServer(ns) As %Status
     w cspConfig.%Save()
     //
 
-    #; do $system.OBJ.ImportDir("/home/irisowner/dev","*.cls","cdk",.errors,1)
-    #; zw $classmethod("Ens.Director", "SetAutoStart", "FHIRHL7V2DEMOPKG.FoundationProduction", 0)
+    do $system.OBJ.Import(dir_"/src","*.cls","cdk",.errors,1)
+    zw $classmethod("Ens.Director", "SetAutoStart", "IRISAPPPKG.FoundationProduction", 0)
 
     //
     
-    set dir="/home/irisowner/dev/data/fhir/"
-    write !," ====== Load test data in "_ns_" from "_dir
-    set st=##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(dir, "FHIRServer", appKey)
+    set data=dir_"/data/fhir/"
+    write !," ====== Load test data in "_ns_" from "_data
+    set st=##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(data, "FHIRServer", appKey)
     if 'st write $System.Status.GetErrorText(st)
 
     quit st
