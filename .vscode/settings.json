@@ -16,6 +16,9 @@
       "host": "localhost",
       "active": true,
       "links": {
+        "Patient List TRAINING": "http://${host}:${port}/fhir/portal/patientlist.html",
+        "Patient List PROD 1": "http://${host}:18880/iris-prod-1/fhir/portal/patientlist.html",
+        "Patient List PROD 2": "http://${host}:18880/iris-prod-2/fhir/portal/patientlist.html",
         "IRIS ADMIN DEV": "http://${host}:${port}/csp/sys/%25CSP.Portal.Home.zen",
         "IRIS SQL DEV": "http://${host}:${port}/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=USER",
         "IRIS Production DEV": "http://${host}:${port}/csp/irisapp/EnsPortal.ProductionConfig.zen?PRODUCTION=dc.Python.Production",
@@ -26,8 +29,7 @@
         "IRIS ADMIN PROD 2": "http://${host}:18880/iris-prod-2/csp/sys/%25CSP.Portal.Home.zen",
         "IRIS SQL PROD 2": "http://${host}:18880/iris-prod-2/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=IRISAPP",
         "IRIS Production PROD 2": "http://${host}:18880/iris-prod-2/csp/irisapp/EnsPortal.ProductionConfig.zen?PRODUCTION=dc.Python.Production",
-        "SWAGGER-UI": "http://localhost:18880/swagger-ui/index.html#/",
-        "SWAGGER-UI SEC": "https://localhost/swagger-ui/index.html#/"
+
       }
     }
 		},
