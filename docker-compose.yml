@@ -137,6 +137,12 @@ services:
 #   databases/iris-training:
 #   databases/iris-prod-1:
 #   databases/iris-prod-2:
-#   journal:
-#   journal2:
-#   WIJ:
+#   journal-training:
+#   journal2-training:
+#   WIJ-training:
+#   journal-prod-1:
+#   journal2-prod-1:
+#   WIJ-prod-1:
+#   journal-prod-2:
+#   journal2-prod-2:
+#   WIJ-prod-2:
