@@ -11,6 +11,11 @@ FIRST_NAMES=("Jean" "Marie" "Pierre" "Sophie" "Cécile" "Michel" "Francoise" "Lu
 LAST_NAMES=("DUCHEMIN" "MARTIN" "BERNARD" "THOMAS" "ROBERT" "RICHARD" "PETIT" "DUBOIS" "MOREAU" "LAURENT" "SIMON" "MICHEL" "LEFEBVRE" "LEROY" "ROUX")
 GENDERS=("male" "female")
 PREFIXES=("Mr." "Mrs." "Dr." "Prof.")
+CITY=("PARIS" "LYON" "MARSEILLE" "TOULOUSE" "NICE" "NANTES" "STRASBOURG" "MONTPELLIER" "BORDEAUX" "LILLE" "RENNES" "SAINT-ETIENNE" "LE HAVRE")
+STATE=("Île-de-France" "Auvergne-Rhône-Alpes" "Provence-Alpes-Côte d'Azur" "Occitanie" "Pays de la Loire" "Grand Est" "Hauts-de-France" "Bretagne" "Normandie" "Centre-Val de Loire" "Bourgogne-Franche-Comté" "Corse")
+POSTAL_CODE=("75001" "69001" "13001" "31000" "06000" "44000" "67000" "34000" "33000" "37000" "21000" "20000")
+COUNTRY=("FR" "US" "DE" "IT" "ES" "GB" "CA" "AU" "BR" "IN")
+ADDRESS_LINES=("1 rue de la Paix" "10 avenue des Champs-Élysées" "5 boulevard Saint-Michel" "20 place de la République" "15 rue du Faubourg Saint-Honoré" "8 avenue de l'Opéra" "12 rue de Rivoli" "3 boulevard Haussmann" "18 place Vendôme" "7 rue de la Victoire")
 
 # Function to generate random date
 generate_random_date() {
@@ -78,6 +83,17 @@ for i in $(seq 1 $ITERATIONS); do
     ],
     "gender": "$GENDER",
     "birthDate": "$BIRTH_DATE",
+    "address": [
+          {
+            "line": [
+              "${ADDRESS_LINES[$RANDOM % ${#ADDRESS_LINES[@]}]}"
+            ],
+            "city": "${CITY[$RANDOM % ${#CITY[@]}]}",
+            "state": "${STATE[$RANDOM % ${#STATE[@]}]}",
+            "postalCode": "${POSTAL_CODE[$RANDOM % ${#POSTAL_CODE[@]}]}",
+            "country": "${COUNTRY[$RANDOM % ${#COUNTRY[@]}]}"
+          }
+        ],
      "meta": {
         "lastUpdated": "2026-02-24T11:07:14Z",
         "versionId": "4"
