@@ -7,8 +7,8 @@ PASSWORD="SYS"
 ITERATIONS=${1:-10}
 
 # Arrays for random values
-FIRST_NAMES=("Jean" "Marie" "Pierre" "Sophie" "Cécile" "Michel" "Francoise" "Luc")
-LAST_NAMES=("DUCHEMIN" "MARTIN" "BERNARD" "THOMAS" "ROBERT" "RICHARD" "PETIT" "DUBOIS")
+FIRST_NAMES=("Jean" "Marie" "Pierre" "Sophie" "Cécile" "Michel" "Francoise" "Luc" "Claire" "David" "Isabelle" "Nicolas" "Émilie" "Alain" "Caroline")
+LAST_NAMES=("DUCHEMIN" "MARTIN" "BERNARD" "THOMAS" "ROBERT" "RICHARD" "PETIT" "DUBOIS" "MOREAU" "LAURENT" "SIMON" "MICHEL" "LEFEBVRE" "LEROY" "ROUX")
 GENDERS=("male" "female")
 PREFIXES=("Mr." "Mrs." "Dr." "Prof.")
 
@@ -38,6 +38,34 @@ for i in $(seq 1 $ITERATIONS); do
         {
             "system": "http://hospital.smarthealthit.org",
             "value": "$ID"
+        },
+            {
+            "type": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "code": "MR",
+                        "display": "Medical Record Number"
+                    }
+                ],
+                "text": "Medical Record Number"
+            },
+            "system": "http://hospital.smarthealthit.org",
+            "value": "$ID"
+        },
+        {
+            "type": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "code": "SS",
+                        "display": "Social Security Number"
+                    }
+                ],
+                "text": "Social Security Number"
+            },
+            "system": "http://hl7.org/fhir/sid/us-ssn",
+            "value": "$ID"
         }
     ],
     "name": [
@@ -49,7 +77,11 @@ for i in $(seq 1 $ITERATIONS); do
         }
     ],
     "gender": "$GENDER",
-    "birthDate": "$BIRTH_DATE"
+    "birthDate": "$BIRTH_DATE",
+     "meta": {
+        "lastUpdated": "2026-02-24T11:07:14Z",
+        "versionId": "4"
+    }
 }
 EOF
 )
