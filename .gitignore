@@ -6,7 +6,13 @@
 **/archive/*
 databases
 backup
-WIJ
-journal
-journal2
+WIJ-training
+journal-training
+journal2-training
+WIJ-prod-1
+journal-prod-1
+journal2-prod-1
+WIJ-prod-2
+journal-prod-2
+journal2-prod-2    
 **/iris.lck

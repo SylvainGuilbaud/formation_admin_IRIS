@@ -10,7 +10,8 @@ ENV IRISNAMESPACE=IRISAPP
 ENV PYTHON_PATH=/usr/irissys/bin/
 
 RUN --mount=type=bind,src=.,dst=. \
-	iris start IRIS \
-	&& iris session IRIS < iris.script \
-	&& iris stop IRIS quietly
+	iris start IRIS && \
+	iris merge IRIS merge.cpf && \
+	iris session IRIS < iris.script && \
+	iris stop IRIS quietly
 	

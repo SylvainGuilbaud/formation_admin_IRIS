@@ -1,0 +1,12 @@
+[config]
+globals=0,0,8192,0,0,0
+routines=0
+jrnbufs=128
+wijdir=/WIJ-prod-2
+
+[Journal]    
+CurrentDirectory=/journal-prod-2
+AlternateDirectory=/journal2-prod-2
+
+[Startup]
+SystemMode=LIVE

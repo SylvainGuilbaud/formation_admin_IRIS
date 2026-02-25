@@ -4,16 +4,16 @@
 # Uses iris freeze/thaw to ensure data consistency during backup
 
 CONTAINER_NAME="${1:-iris-training}"
-
+NAME="${CONTAINER_NAME/iris-/}"
 INSTANCE="iris"
 SOURCE_DIR="./databases/"${CONTAINER_NAME}
 BACKUP_DIR="./backup/"${CONTAINER_NAME}
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 BACKUP_DEST="${BACKUP_DIR}/${TIMESTAMP}"
 LOG_FILE="${BACKUP_DIR}/${CONTAINER_NAME}-backup-${TIMESTAMP}.log"
-WIJ_DIR="./WIJ"
-JOURNAL_DIR="./journal"
-JOURNAL2_DIR="./journal2"
+WIJ_DIR="./WIJ-${NAME}"
+JOURNAL_DIR="./journal-${NAME}"
+JOURNAL2_DIR="./journal2-${NAME}"
 
 # Create backup directory if it doesn't exist
 mkdir -p "${BACKUP_DIR}"

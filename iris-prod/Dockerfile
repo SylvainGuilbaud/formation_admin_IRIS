@@ -22,7 +22,6 @@ RUN mkdir -p /home/irisowner/keys
 
 RUN --mount=type=bind,src=.,dst=. \
     iris start IRIS && \
-    iris session IRIS < iris-sys.script && \
     iris merge IRIS merge.cpf && \
-	iris session IRIS < iris-prod.script && \
+	iris session IRIS < iris.script && \
     iris stop IRIS quietly

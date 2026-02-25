@@ -51,7 +51,6 @@
     set SQLGateway.pwd = "postgres"
     set sc = SQLGateway.%Save()
 
-
     zn "USER"
 
     set r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="ISC.FeatureTracker.SSL.Config" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
@@ -60,7 +59,7 @@
 
     do ##class(%File).CopyFile("/home/irisowner/dev/fhirPortal/myFHIR.js","/usr/irissys/csp/fhir/portal/resources/js/myFHIR.js")
     
-    set sc = $SYSTEM.OBJ.Import("/home/irisowner/dev/src","ck",,1)
+    set sc = $SYSTEM.OBJ.Import("/home/irisowner/dev/src","ck")
 
     do ##class(FHIR.utils).SetupFHIRServer("IRISAPP")
 
