@@ -98,6 +98,7 @@ services:
     image: ${WEBGATEWAY}
     init: true
     hostname: ${WEBGATEWAY_NAME}
+    container_name: ${WEBGATEWAY_NAME}
     ports:
     - ${WEBGATEWAY_PORT_HTTP}:80
     - ${WEBGATEWAY_PORT_HTTPS}:443
@@ -119,6 +120,7 @@ services:
 
   notebook:
     image: notebook
+    container_name: notebook
     build: 
       context: notebook
     ports:
