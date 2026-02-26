@@ -1,8 +1,7 @@
 #!/bin/bash
 
-BASE_URL="http://localhost:18880/iris-prod-2/irisapp/fhir/r4/Patient"
+BASE_URL="http://localhost:18880/iris-prod-1/irisapp/fhir/r4/Patient"
 
-ITERATIONS=${2:-10}
 USERNAME="_system"
 PASSWORD="SYS"
 ITERATIONS=${1:-10}
