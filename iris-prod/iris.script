@@ -3,6 +3,7 @@
     set r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="ISC.FeatureTracker.SSL.Config" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
     zpm "repo -r -n registry -reset-defaults"
     zpm "install fhir-portal"
+    zpm "install webterminal"
 
     do ##class(%File).CopyFile("/home/irisowner/dev/fhirPortal/myFHIR.js","/usr/irissys/csp/fhir/portal/resources/js/myFHIR.js")
     
@@ -11,6 +12,19 @@
     do ##class(FHIR.utils).SetupFHIRServer("IRISAPP")
 
     zn "%SYS"
+
+    set app = ##class(Security.Applications).%OpenId("/terminalsocket")
+    do app.MatchRoles.Clear()
+    do app.MatchRoles.Insert(":%DB_IRISSYS:%DB_USER:WebTerminal")
+    set sc = app.%Save()
+
+    set role = ##class(Security.Roles).%OpenId("webterminal")
+    set resource = ##class(Security.Resource).%New()
+    set resource.Name = "%Admin_Secure"
+    set resource.Permission = 4
+    do role.Resources.Insert(resource)
+    set sc = role.%Save()
+
     do ##class(%SYSTEM.CSP).SetConfig("CSPConfigName","iris-prod-1")
 
     do ##class(Security.Users).UnExpireUserPasswords("*")
