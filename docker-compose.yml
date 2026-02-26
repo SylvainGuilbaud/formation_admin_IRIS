@@ -48,6 +48,9 @@ services:
     - type: bind
       source: ./webgateway/cert
       target: /opt/cert
+    - type: bind
+      source: ./mirror/mirror-certs
+      target: /mirror-certs
     environment:
       - TZ=$TZ
       - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_1}   
@@ -80,6 +83,9 @@ services:
     - type: bind
       source: ./webgateway/cert
       target: /opt/cert
+    - type: bind
+      source: ./mirror/mirror-certs
+      target: /mirror-certs
     environment:
       - TZ=$TZ
       - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_2}
@@ -105,6 +111,11 @@ services:
     - type: bind
       source: ./webgateway/cert
       target: /opt/cert
+  arbiter:
+    image: ${ARBITER}
+    container_name: ${ARBITER_NAME}
+    hostname: ${ARBITER_NAME}
+    # command: ["-p 2188"]
 
   notebook:
     image: notebook
