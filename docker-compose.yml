@@ -148,14 +148,38 @@ services:
 
 volumes:
   databases_training:
+    external: true
+    name: formation_admin_iris-2_databases_training
   journal_training:
+    external: true
+    name: formation_admin_iris-2_journal_training
   journal2_training:
+    external: true
+    name: formation_admin_iris-2_journal2_training
   WIJ_training:
+    external: true
+    name: formation_admin_iris-2_WIJ_training
   databases_prod_1:
+    external: true
+    name: formation_admin_iris-2_databases_prod_1
   journal_prod_1:
+    external: true
+    name: formation_admin_iris-2_journal_prod_1
   journal2_prod_1:
+    external: true
+    name: formation_admin_iris-2_journal2_prod_1
   WIJ_prod_1:
+    external: true
+    name: formation_admin_iris-2_WIJ_prod_1
   databases_prod_2:
+    external: true
+    name: formation_admin_iris-2_databases_prod_2
   journal_prod_2:
+    external: true
+    name: formation_admin_iris-2_journal_prod_2
   journal2_prod_2:
-  WIJ_prod_2:
+    external: true
+    name: formation_admin_iris-2_journal2_prod_2
+  WIJ_prod_2: 
+    external: true
+    name: formation_admin_iris-2_WIJ_prod_2
