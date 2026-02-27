@@ -10,7 +10,7 @@ services:
     container_name: iris-training
     environment:
       - TZ=$TZ
-      - ISC_DATA_DIRECTORY=/databases
+      - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_TRAINING}
       - ISC_CPF_MERGE_FILE=/merge.cpf
     ports: 
       - 11972:1972
@@ -18,11 +18,11 @@ services:
     volumes:
       - ./iris-training:/irisdev/app
       - ./jdbc:/jdbc
-      - databases_training:/databases
-      - journal_training:/journal
-      - journal2_training:/journal2
-      - WIJ_training:/WIJ
-      - ./merge.cpf:/merge.cpf
+      - ./databases/iris-training:${ISC_DATA_DIRECTORY_TRAINING}
+      - ./journal-training:/journal-training
+      - ./journal2-training:/journal2-training
+      - ./WIJ-training:/WIJ-training
+      - ./merge-training.cpf:/merge.cpf
 
   iris-prod-1:
     build: 
@@ -37,11 +37,11 @@ services:
     volumes:
     - ./iris-prod:/irisdev/app
     - ./jdbc:/jdbc
-    - databases_prod_1:/databases
-    - journal_prod_1:/journal
-    - journal2_prod_1:/journal2
-    - WIJ_prod_1:/WIJ
-    - ./merge.cpf:/merge.cpf
+    - ./databases/iris-prod-1:${ISC_DATA_DIRECTORY_PROD_1}
+    - ./journal-prod-1:/journal-prod-1
+    - ./journal2-prod-1:/journal2-prod-1
+    - ./WIJ-prod-1:/WIJ-prod-1
+    - ./merge-prod-1.cpf:/merge.cpf
     - type: bind
       source: ./iris-prod
       target: /iris-prod-1
@@ -53,7 +53,7 @@ services:
       target: /mirror-certs
     environment:
       - TZ=$TZ
-      - ISC_DATA_DIRECTORY=/databases
+      - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_1}   
       - ISC_CPF_MERGE_FILE=/merge.cpf
     ports:
       - 10001:1972
@@ -72,11 +72,11 @@ services:
     volumes:
     - ./iris-prod:/irisdev/app
     - ./jdbc:/jdbc
-    - databases_prod_2:/databases
-    - journal_prod_2:/journal
-    - journal2_prod_2:/journal2
-    - WIJ_prod_2:/WIJ
-    - ./merge.cpf:/merge.cpf
+    - ./databases/iris-prod-2:${ISC_DATA_DIRECTORY_PROD_2}
+    - ./journal-prod-2:/journal-prod-2
+    - ./journal2-prod-2:/journal2-prod-2
+    - ./WIJ-prod-2:/WIJ-prod-2
+    - ./merge-prod-2.cpf:/merge.cpf
     - type: bind
       source: ./iris-prod
       target: /iris-prod-2
@@ -88,7 +88,7 @@ services:
       target: /mirror-certs
     environment:
       - TZ=$TZ
-      - ISC_DATA_DIRECTORY=/databases
+      - ISC_DATA_DIRECTORY=${ISC_DATA_DIRECTORY_PROD_2}
       - ISC_CPF_MERGE_FILE=/merge.cpf
     ports:
       - 10002:1972
@@ -146,16 +146,16 @@ services:
   #       timeout: 30s
   #       retries: 3
 
-volumes:
-  databases_training:
-  journal_training:
-  journal2_training:
-  WIJ_training:
-  databases_prod_1:
-  journal_prod_1:
-  journal2_prod_1:
-  WIJ_prod_1:
-  databases_prod_2:
-  journal_prod_2:
-  journal2_prod_2:
-  WIJ_prod_2:
+# volumes:
+#   databases/iris-training:
+  databases/iris-prod-1:
+  databases/iris-prod-2:
+#   journal-training:
+#   journal2-training:
+#   WIJ-training:
+  journal-prod-1:
+  journal2-prod-1:
+  WIJ-prod-1:
+  journal-prod-2:
+  journal2-prod-2:
+  WIJ-prod-2:

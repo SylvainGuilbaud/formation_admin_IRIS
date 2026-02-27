@@ -6,14 +6,14 @@
 CONTAINER_NAME="${1:-iris-training}"
 NAME="${CONTAINER_NAME/iris-/}"
 INSTANCE="iris"
-SOURCE_DIR="${CONTAINER_NAME}:/databases"
+SOURCE_DIR="./databases/"${CONTAINER_NAME}
 BACKUP_DIR="./backup/"${CONTAINER_NAME}
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 BACKUP_DEST="${BACKUP_DIR}/${TIMESTAMP}"
 LOG_FILE="${BACKUP_DIR}/${CONTAINER_NAME}-backup-${TIMESTAMP}.log"
-WIJ_DIR="${CONTAINER_NAME}:/WIJ"
-JOURNAL_DIR="${CONTAINER_NAME}:/journal"
-JOURNAL2_DIR="${CONTAINER_NAME}:/journal2"
+WIJ_DIR="./WIJ-${NAME}"
+JOURNAL_DIR="./journal-${NAME}"
+JOURNAL2_DIR="./journal2-${NAME}"
 
 # Create backup directory if it doesn't exist
 mkdir -p "${BACKUP_DIR}"
@@ -32,10 +32,10 @@ echo "$(date) - IRIS instance frozen successfully" | tee -a "${LOG_FILE}"
 # Step 2: Copy databases
 echo "$(date) - Copying databases from ${SOURCE_DIR} to ${BACKUP_DEST}" | tee -a "${LOG_FILE}"
 mkdir -p "${BACKUP_DEST}"
-docker cp "${SOURCE_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
-docker cp "${WIJ_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
-docker cp "${JOURNAL_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
-docker cp "${JOURNAL2_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
+cp -R "${SOURCE_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
+cp -R "${WIJ_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
+cp -R "${JOURNAL_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
+cp -R "${JOURNAL2_DIR}" "${BACKUP_DEST}" >> "${LOG_FILE}" 2>&1
 COPY_STATUS=$?
 
 # Step 3: Thaw IRIS instance (always executed, even if copy failed)

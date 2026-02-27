@@ -2,11 +2,11 @@
 globals=0,0,2048,0,0,0
 routines=0
 jrnbufs=128
-wijdir=/WIJ-prod-1
+wijdir=/WIJ
 
 [Journal]    
-CurrentDirectory=/journal-prod-1
-AlternateDirectory=/journal2-prod-1
+CurrentDirectory=/journal
+AlternateDirectory=/journal2
 
 [Startup]
 SystemMode=LIVE
