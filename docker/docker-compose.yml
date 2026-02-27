@@ -1,0 +1,17 @@
+services:
+  app:
+    image: iris-training
+    restart: always
+    hostname: iris-test 
+    container_name: iris-test
+    environment:
+      - TZ=$TZ
+      - ISC_DATA_DIRECTORY=/persistent_data
+    ports: 
+      - 11973:1972
+      - 10003:52773
+    volumes:
+      - persistent_data:/persistent_data
+
+volumes:
+  persistent_data:
