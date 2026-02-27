@@ -1,0 +1,24 @@
+ls: cannot access '/databases/mgr/IRISAPP*': No such file or directory
+ls: cannot access '/databases/mgr/IRISAPP*': No such file or directory
+rm: cannot remove '/databases/mgr/IRISAPP/IRIS.DAT': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/iris.lck': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/stream': Permission denied
+ls: cannot access '/databases/mgr/IRISAPP*': No such file or directory
+rm: cannot remove '/databases/mgr/IRISAPP/IRIS.DAT': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/iris.lck': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/stream': Permission denied
+ls: cannot access '/databases/mgr/IRISAPP*': No such file or directory
+rm: cannot remove '/databases/mgr/IRISAPP/IRIS.DAT': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/IRISAPP/IRIS.DAT': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/IRISAPP/iris.lck': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/IRISAPP/stream': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/iris.lck': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/stream': Permission denied
+ls: cannot access '/databases/mgr/IRISAPP*': No such file or directory
+rm: cannot remove '/databases/mgr/IRISAPP/IRIS.DAT': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/IRISAPP/IRIS.DAT': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/IRISAPP/iris.lck': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/IRISAPP/stream': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/iris.lck': Permission denied
+rm: cannot remove '/databases/mgr/IRISAPP/stream': Permission denied
+ls: cannot access '/databases/mgr/IRISAPP*': No such file or directory
