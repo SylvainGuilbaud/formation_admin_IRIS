@@ -158,10 +158,10 @@ volumes:
     name: ${VOLUME_NAME}journal2_training
   WIJ_training:
     external: true
-    name: ${VOLUME_NAME}WIJ_training  
-  databases_prod_1:   
+    name: ${VOLUME_NAME}WIJ_training
+  databases_prod_1:
     external: true
-    name: ${VOLUME_NAME}databases_prod_1  
+    name: ${VOLUME_NAME}databases_prod_1
   journal_prod_1:
     external: true
     name: ${VOLUME_NAME}journal_prod_1
@@ -179,7 +179,7 @@ volumes:
     name: ${VOLUME_NAME}journal_prod_2
   journal2_prod_2:
     external: true
-    name: ${VOLUME_NAME}journal2_prod_2   
-  WIJ_prod_2:
+    name: ${VOLUME_NAME}journal2_prod_2
+  WIJ_prod_2: 
     external: true
     name: ${VOLUME_NAME}WIJ_prod_2

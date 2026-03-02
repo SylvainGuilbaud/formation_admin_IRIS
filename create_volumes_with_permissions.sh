@@ -3,10 +3,10 @@
 # in order to allow the IRIS container to read and write to it without issues.
 
 # Get the last directory of $PWD to replace docker_ in volume_name
-PROJECT_NAME=$(basename "$PWD" | tr '[:upper:]' '[:lower:]')
+source .env
 
 set_permissions() {
-    local volume_name="${PROJECT_NAME}_$1"
+    local volume_name="${VOLUME_PREFIX}_$1"
     local mount_point="/$1"
     docker run --rm -v "${volume_name}:${mount_point}" alpine sh -c \
         "chown -R 51773:51773 ${mount_point} && chmod -R u+rwX,g+rwX ${mount_point}"

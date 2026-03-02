@@ -31,7 +31,7 @@ cd formation_admin_IRIS
 4. Démarrer les services:
 
 ```bash
-docker-compose up -d
+./start.sh
 ```
 5. Attendre que les services soient démarrés (environ 2 minutes) et vérifier que tous les conteneurs sont en état "healthy":
 
