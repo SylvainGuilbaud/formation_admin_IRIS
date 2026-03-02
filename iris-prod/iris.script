@@ -137,7 +137,7 @@
     set SQLGateway.isJDBC = 1
     set SQLGateway.driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
     set SQLGateway.URL = "jdbc:sqlserver://mssql:1433;databaseName=master;encrypt=false"
-    set SQLGateway.classpath = "/jdbc/mssql-jdbc-11.2.1.jre8.jar"
+    set SQLGateway.classpath = "/jdbc/mssql-jdbc-13.2.1.jre11.jar"
     set SQLGateway.Usr = "sa"
     set SQLGateway.pwd = "sa"
     set sc = SQLGateway.%Save()

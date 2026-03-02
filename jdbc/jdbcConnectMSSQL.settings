@@ -3,4 +3,4 @@ Driver name:
 URL:	
   jdbc:sqlserver://mssql:1433;databaseName=master;encrypt=false
 Class path:	
-  /app/jdbc/mssql-jdbc-11.2.1.jre8.jar
+  /app/jdbc/mssql-jdbc-13.2.1.jre11.jar

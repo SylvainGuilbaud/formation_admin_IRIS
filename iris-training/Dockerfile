@@ -1,5 +1,4 @@
-ARG IMAGE=intersystemsdc/irishealth-community:latest
-ARG IMAGE=intersystemsdc/iris-community:latest
+ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:latest-em
 FROM $IMAGE 
 
 WORKDIR /home/irisowner/dev
