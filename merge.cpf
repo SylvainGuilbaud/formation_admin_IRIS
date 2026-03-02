@@ -9,4 +9,7 @@ CurrentDirectory=/journal
 AlternateDirectory=/journal2
 
 [Startup]
-SystemMode=LIVE
+TerminalPrompt=1,2,8
+EnsembleAutoStart=1
+SystemPerformanceDailyReportsOn=1
+SystemPerformanceDailyReportsRetentionDays=10
