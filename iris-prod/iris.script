@@ -4,6 +4,7 @@
     zpm "repo -r -n registry -reset-defaults"
     zpm "install fhir-portal"
     zpm "install webterminal"
+     zpm "enable -map -globally"
 
     do ##class(%File).CopyFile("/home/irisowner/dev/fhirPortal/myFHIR.js","/usr/irissys/csp/fhir/portal/resources/js/myFHIR.js")
     
