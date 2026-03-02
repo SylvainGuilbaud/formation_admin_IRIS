@@ -10,14 +10,68 @@ USERNAME="_system"
 PASSWORD="SYS"
 ITERATIONS=${1:-10}
 
-# Arrays for random values
-FIRST_NAMES+=("Jean" "Marie" "Pierre" "Sophie" "Cécile" "Michel" "Francoise" "Luc" "Claire" "David" "Isabelle" "Nicolas" "Émilie" "Alain" "Caroline" "James" "John" "Robert" "Michael" "William" "David" "Richard" "Joseph" "Thomas" "Charles" "Mary" "Patricia" "Jennifer" "Linda" "Barbara" "Elizabeth" "Susan" "Jessica" "Sarah" "Karen" "Juan" "Jose" "Carlos" "Luis" "Antonio" "Miguel" "Francisco" "Manuel" "Maria" "Carmen" "Rosa" "Isabel" "Ana" "Klaus" "Hans" "Gunter" "Wolfgang" "Helmut" "Brigitte" "Ursula" "Petra" "Silvia" "Marco" "Giuseppe" "Paolo" "Giovanni" "Antonio" "Maria" "Giovanna" "Francesca" "Rosa" "Elena" "Yuki" "Haruto" "Sakura" "Kenji" "Aiko" "Wei" "Li" "Mei" "Fang" "Jing" "Raj" "Priya" "Amit" "Sunita" "Vikram" "Omar" "Fatima" "Ahmed" "Layla" "Hassan" "Kofi" "Amara" "Chioma" "Emeka" "Ngozi" "Thabo" "Nomvula" "Sipho" "Zanele" "Bongani" "Lucas" "Gabriel" "Isabella" "Pedro" "Valentina" "Diego" "Camila" "Sebastián" "Daniela" "Mateo" "Aroha" "Tane" "Hemi" "Mere" "Rangi" "Wiremu" "Hana" "Paora" "Ngaio" "Tūhoe")
-LAST_NAMES+=("DUCHEMIN" "MARTIN" "BERNARD" "THOMAS" "ROBERT" "RICHARD" "PETIT" "DUBOIS" "MOREAU" "SIMON" "MICHEL" "LEFEBVRE" "LEROY" "ROUX" "SMITH" "JOHNSON" "WILLIAMS" "BROWN" "JONES" "GARCIA" "MILLER" "DAVIS" "RODRIGUEZ" "MARTINEZ" "HERNANDEZ" "LOPEZ" "GONZALEZ" "WILSON" "ANDERSON" "MUELLER" "SCHMIDT" "SCHNEIDER" "FISCHER" "WEBER" "MEYER" "WAGNER" "BECKER" "SCHULZ" "HOFFMANN" "ROSSI" "RUSSO" "FERRARI" "BIANCHI" "ROMANO" "COLOMBO" "COSTA" "CONTI" "DE LUCA" "MANCINI" "SANCHEZ" "PEREZ" "FERNANDEZ" "GARCIA" "TOLEDO" "GUTIERREZ" "MORALES" "VARGAS" "TANAKA" "SUZUKI" "WATANABE" "ITO" "YAMAMOTO" "WANG" "LI" "ZHANG" "CHEN" "LIU" "PATEL" "SHARMA" "SINGH" "KUMAR" "GUPTA" "AL-RASHID" "AL-FARSI" "HASSAN" "IBRAHIM" "MANSOUR" "MENSAH" "OKAFOR" "DIALLO" "TRAORÉ" "NDIAYE" "DLAMINI" "NKOSI" "MOKOENA" "MOLEFE" "ZULU" "SILVA" "OLIVEIRA" "SOUZA" "SANTOS" "FERREIRA" "MORALES" "REYES" "TORRES" "FLORES" "HERRERA" "TANE" "PARATA" "NGATA" "HENARE" "WAITITI" "NGĀTI" "HĀPAI" "MĀHAKI" "TŪHOE" "RONGOMATĀNE")
+# Arrays for random values for firstnames
+FIRST_NAMES+=("Jean" "Marie" "Pierre" "Sophie" "Cécile" "Michel" "Francoise" "Luc" "Claire" "David")
+FIRST_NAMES+=("Isabelle" "Nicolas" "Émilie" "Alain" "Caroline" "James" "John" "Robert" "Michael" "William")
+FIRST_NAMES+=("David" "Richard" "Joseph" "Thomas" "Charles" "Mary" "Patricia" "Jennifer" "Linda" "Barbara")
+FIRST_NAMES+=("Elizabeth" "Susan" "Jessica" "Sarah" "Karen" "Juan" "Jose" "Carlos" "Luis" "Antonio")
+FIRST_NAMES+=("Miguel" "Francisco" "Manuel" "Maria" "Carmen" "Rosa" "Isabel" "Ana" "Klaus" "Hans")
+FIRST_NAMES+=("Gunter" "Wolfgang" "Helmut" "Brigitte" "Ursula" "Petra" "Silvia" "Marco" "Giuseppe" "Paolo")
+FIRST_NAMES+=("Giovanni" "Antonio" "Maria" "Giovanna" "Francesca" "Rosa" "Elena" "Yuki" "Haruto" "Sakura")
+FIRST_NAMES+=("Kenji" "Aiko" "Wei" "Li" "Mei" "Fang" "Jing" "Raj" "Priya" "Amit")
+FIRST_NAMES+=("Sunita" "Vikram" "Omar" "Fatima" "Ahmed" "Layla" "Hassan" "Kofi" "Amara" "Chioma")
+FIRST_NAMES+=("Emeka" "Ngozi" "Thabo" "Nomvula" "Sipho" "Zanele" "Bongani" "Lucas" "Gabriel" "Isabella")
+FIRST_NAMES+=("Pedro" "Valentina" "Diego" "Camila" "Sebastián" "Daniela" "Mateo" "Aroha" "Tane" "Hemi")
+FIRST_NAMES+=("Mere" "Rangi" "Wiremu" "Hana" "Paora" "Ngaio" "Tūhoe")
+FIRST_NAMES+=("Oluwaseun" "Chukwuemeka" "Adaeze" "Seun" "Tunde" "Bola" "Yetunde" "Adaobi" "Chidi" "Nkem")
+FIRST_NAMES+=("Amara" "Kwame" "Abena" "Kofi" "Ama" "Yaw" "Esi" "Kojo" "Akua" "Kwesi")
+FIRST_NAMES+=("Fatou" "Moussa" "Aminata" "Mamadou" "Aissatou" "Ibrahima" "Mariama" "Ousmane" "Rokhaya" "Cheikh")
+FIRST_NAMES+=("Leilani" "Kaimana" "Kealoha" "Makoa" "Nalani" "Kahale" "Kailani" "Maui" "Nohea" "Palani")
+# Arrays for random values for lastnames
+LAST_NAMES+=("DUCHEMIN" "MARTIN" "BERNARD" "THOMAS" "ROBERT" "RICHARD" "PETIT" "DUBOIS" "MOREAU" "SIMON")
+LAST_NAMES+=("MICHEL" "LEFEBVRE" "LEROY" "ROUX" "SMITH" "JOHNSON" "WILLIAMS" "BROWN" "JONES" "GARCIA")
+LAST_NAMES+=("MILLER" "DAVIS" "RODRIGUEZ" "MARTINEZ" "HERNANDEZ" "LOPEZ" "GONZALEZ" "WILSON" "ANDERSON")
+LAST_NAMES+=("MUELLER" "SCHMIDT" "SCHNEIDER" "FISCHER" "WEBER" "MEYER" "WAGNER" "BECKER" "SCHULZ" "HOFFMANN")
+LAST_NAMES+=("ROSSI" "RUSSO" "FERRARI" "BIANCHI" "ROMANO" "COLOMBO" "COSTA" "CONTI" "DE LUCA" "MANCINI")
+LAST_NAMES+=("SANCHEZ" "PEREZ" "FERNANDEZ" "GARCIA" "TOLEDO" "GUTIERREZ" "MORALES" "VARGAS")
+LAST_NAMES+=("TANAKA" "SUZUKI" "WATANABE" "ITO" "YAMAMOTO" "WANG" "LI" "ZHANG" "CHEN" "LIU")
+LAST_NAMES+=("PATEL" "SHARMA" "SINGH" "KUMAR" "GUPTA" "AL-RASHID" "AL-FARSI" "HASSAN" "IBRAHIM" "MANSOUR")
+LAST_NAMES+=("MENSAH" "OKAFOR" "DIALLO" "TRAORÉ" "NDIAYE" "DLAMINI" "NKOSI" "MOKOENA" "MOLEFE" "ZULU")
+LAST_NAMES+=("SILVA" "OLIVEIRA" "SOUZA" "SANTOS" "FERREIRA" "MORALES" "REYES" "TORRES" "FLORES" "HERRERA")
+LAST_NAMES+=("TANE" "PARATA" "NGATA" "HENARE" "WAITITI" "NGĀTI" "HĀPAI" "MĀHAKI" "TŪHOE" "RONGOMATĀNE")
+
 GENDERS=("male" "female")
 PREFIXES=("Mr." "Mrs." "Dr." "Prof.")
-CITY=("PARIS" "LYON" "MARSEILLE" "TOULOUSE" "NICE" "NANTES" "STRASBOURG" "MONTPELLIER" "BORDEAUX" "LILLE" "RENNES" "SAINT-ETIENNE" "LE HAVRE" "LONDON" "NEW YORK" "LOS ANGELES" "CHICAGO" "TORONTO" "SYDNEY" "MELBOURNE" "TOKYO" "BEIJING" "SHANGHAI" "MUMBAI" "DELHI" "SAO PAULO" "RIO DE JANEIRO" "BUENOS AIRES" "MEXICO CITY" "BOGOTA" "CAIRO" "LAGOS" "NAIROBI" "JOHANNESBURG" "CAPE TOWN" "MOSCOW" "BERLIN" "MADRID" "ROME" "AMSTERDAM" "BRUSSELS" "VIENNA" "STOCKHOLM" "OSLO" "COPENHAGEN" "WARSAW" "PRAGUE" "BUDAPEST" "LISBON" "ATHENS" "ISTANBUL" "DUBAI" "SINGAPORE" "HONG KONG" "SEOUL" "BANGKOK" "JAKARTA" "MANILA" "KARACHI" "DHAKA" "CASABLANCA" "ACCRA" "ADDIS ABABA" "DAR ES SALAAM" "KINSHASA" "AUCKLAND" "WELLINGTON" "SUVA" "PORT MORESBY" "LIMA" "SANTIAGO" "BOGOTA" "CARACAS" "MONTEVIDEO" "ASUNCION")
+# Arrays for random values for cities
+CITY=("PARIS" "LYON" "MARSEILLE" "TOULOUSE" "NICE" "NANTES" "STRASBOURG" "MONTPELLIER" "BORDEAUX" "LILLE")
+CITY+=("RENNES" "SAINT-ETIENNE" "LE HAVRE" "LONDON" "NEW YORK" "LOS ANGELES" "CHICAGO" "TORONTO" "SYDNEY" "MELBOURNE")
+CITY+=("TOKYO" "BEIJING" "SHANGHAI" "MUMBAI" "DELHI" "SAO PAULO" "RIO DE JANEIRO" "BUENOS AIRES" "MEXICO CITY" "BOGOTA")
+CITY+=("CAIRO" "LAGOS" "NAIROBI" "JOHANNESBURG" "CAPE TOWN" "MOSCOW" "BERLIN" "MADRID" "ROME" "AMSTERDAM")
+CITY+=("BRUSSELS" "VIENNA" "STOCKHOLM" "OSLO" "COPENHAGEN" "WARSAW" "PRAGUE" "BUDAPEST" "LISBON" "ATHENS")
+CITY+=("ISTANBUL" "DUBAI" "SINGAPORE" "HONG KONG" "SEOUL" "BANGKOK" "JAKARTA" "MANILA" "KARACHI" "DHAKA")
+CITY+=("CASABLANCA" "ACCRA" "ADDIS ABABA" "DAR ES SALAAM" "KINSHASA" "AUCKLAND" "WELLINGTON" "SUVA" "PORT MORESBY")
+CITY+=("LIMA" "SANTIAGO" "BOGOTA" "CARACAS" "MONTEVIDEO" "ASUNCION")
+
+# Arrays for random values for states/regions/provinces
 STATE=("Île-de-France" "Auvergne-Rhône-Alpes" "Provence-Alpes-Côte d'Azur" "Occitanie" "Pays de la Loire" "Grand Est" "Hauts-de-France" "Bretagne" "Normandie" "Centre-Val de Loire" "Bourgogne-Franche-Comté" "Corse")
-STATE+=("Île-de-France" "Auvergne-Rhône-Alpes" "Provence-Alpes-Côte d'Azur" "Occitanie" "Pays de la Loire" "Bavaria" "North Rhine-Westphalia" "Baden-Württemberg" "Saxony" "Lombardy" "Tuscany" "Sicily" "Catalonia" "Andalusia" "Madrid" "England" "Scotland" "Wales" "California" "Texas" "New York" "Florida" "Ontario" "Quebec" "British Columbia" "New South Wales" "Victoria" "Queensland" "São Paulo" "Rio de Janeiro" "Minas Gerais" "Buenos Aires" "Córdoba" "Mendoza" "Jalisco" "Nuevo León" "Veracruz" "Gauteng" "Western Cape" "KwaZulu-Natal" "Lagos" "Kano" "Nairobi County" "Addis Ababa" "Cairo Governorate" "Maharashtra" "Uttar Pradesh" "Karnataka" "Tamil Nadu" "Tokyo" "Osaka" "Aichi" "Guangdong" "Shandong" "Jiangsu" "New South Wales" "Victoria" "Queensland" "Western Australia" "Auckland" "Canterbury" "Wellington")
+STATE+=("Bavaria" "North Rhine-Westphalia" "Baden-Württemberg" "Saxony")
+STATE+=("Lombardy" "Tuscany" "Sicily")
+STATE+=("Catalonia" "Andalusia" "Madrid")
+STATE+=("England" "Scotland" "Wales")
+STATE+=("California" "Texas" "New York" "Florida")
+STATE+=("Ontario" "Quebec" "British Columbia")
+STATE+=("New South Wales" "Victoria" "Queensland")
+STATE+=("São Paulo" "Rio de Janeiro" "Minas Gerais")
+STATE+=("Buenos Aires" "Córdoba" "Mendoza")
+STATE+=("Jalisco" "Nuevo León" "Veracruz")
+STATE+=("Gauteng" "Western Cape" "KwaZulu-Natal")
+STATE+=("Lagos" "Kano" "Nairobi County" "Addis Ababa" "Cairo Governorate")
+STATE+=("Maharashtra" "Uttar Pradesh" "Karnataka" "Tamil Nadu")
+STATE+=("Tokyo" "Osaka" "Aichi")
+STATE+=("Guangdong" "Shandong" "Jiangsu")
+STATE+=("Western Australia" "Auckland" "Canterbury" "Wellington")
+
+# Arrays for random values for postal codes
 POSTAL_CODE=("75001" "69001" "13001" "31000" "06000" "44000" "67000" "34000" "33000" "37000" "21000" "20000")
 POSTAL_CODE+=("10001" "90210" "60601" "77001" "85001" "30301" "98101" "02101" "19101" "20001")
 POSTAL_CODE+=("SW1A 1AA" "EC1A 1BB" "W1A 0AX" "M1 1AE" "B1 1BB" "LS1 1BA" "E1 6AN" "WC2N 5DU")
@@ -32,12 +86,28 @@ POSTAL_CODE+=("01310-100" "20040-020" "30112-010" "40020-020" "69010-060" "80010
 POSTAL_CODE+=("1000" "1425" "5000" "8000" "4000" "2000" "3000" "6000" "7000" "9000")
 POSTAL_CODE+=("2000" "2010" "3000" "4000" "5000" "6000" "6800" "7000" "7300" "0001")
 POSTAL_CODE+=("1000" "2000" "3000" "4000" "5000" "6000" "7000" "8000" "0100" "0200")
+
+# Arrays for random values for countries
 COUNTRY+=("FR" "DE" "IT" "ES" "GB" "NL" "BE" "PT" "AT" "CH" "SE" "NO" "DK" "FI" "PL" "CZ" "HU" "RO" "GR" "TR")
 COUNTRY+=("US" "CA" "MX" "BR" "AR" "CO" "CL" "PE" "VE" "EC" "BO" "PY" "UY" "GT" "CU" "DO" "HN" "SV" "NI" "CR")
 COUNTRY+=("NG" "ZA" "EG" "KE" "ET" "GH" "TZ" "DZ" "MA" "SD" "UG" "CI" "CM" "MZ" "MG" "AO" "SN" "ZM" "ZW" "TN")
 COUNTRY+=("CN" "IN" "JP" "KR" "ID" "PK" "BD" "VN" "TH" "PH" "MY" "SA" "AE" "IQ" "IR" "SY" "JO" "LB" "KW" "QA")
 COUNTRY+=("AU" "NZ" "PG" "FJ" "SB" "VU" "WS" "TO" "KI" "FM")
-ADDRESS_LINES=("1 rue de la Paix" "10 avenue des Champs-Élysées" "5 boulevard Saint-Michel" "20 place de la République" "15 rue du Faubourg Saint-Honoré" "8 avenue de l'Opéra" "12 rue de Rivoli" "3 boulevard Haussmann" "18 place Vendôme" "7 rue de la Victoire" "10 Downing Street" "221B Baker Street" "1 Oxford Street" "42 Wallaby Way" "15 Unter den Linden" "23 Kurfürstendamm" "7 Via Veneto" "15 Calle de Alcalá" "20 Rua Augusta" "5 Grote Marktstraat" "12 Ringstrasse" "8 Nybrogatan" "3 Karl Johans gate" "17 Strøget" "45 Nowy Świat" "10 Václavské náměstí" "6 Váci utca" "888 Fifth Avenue" "123 Main Street" "456 Sunset Boulevard" "1600 Pennsylvania Avenue" "742 Evergreen Terrace" "100 Queen Street West" "999 Bay Street" "50 Av. Paulista" "100 Rua das Flores" "500 Avenida 9 de Julio" "200 Paseo de la Reforma" "150 Avenida Corrientes" "300 Avenida Providencia" "25 Nelson Mandela Square" "10 Long Street" "5 Uhuru Highway" "20 Kenyatta Avenue" "15 Liberation Road" "8 Lagos Island Street" "30 Nile Corniche" "12 Mohammed V Boulevard" "7 Habib Bourguiba Avenue" "50 Tahrir Square" "100 Nanjing Road" "50 Wangfujing Street" "8 Omotesando" "15 Gangnam-daero" "200 Orchard Road" "10 Sukhumvit Road" "5 Rizal Avenue" "30 Bund" "20 Connaught Place" "15 MG Road" "1 Martin Place" "200 Queen Street" "50 Lambton Quay" "10 Bourke Street" "5 Edward Street")
+
+ADDRESS_LINES=("1 rue de la Paix" "10 avenue des Champs-Élysées" "5 boulevard Saint-Michel" "20 place de la République" "15 rue du Faubourg Saint-Honoré")
+ADDRESS_LINES+=("8 avenue de l'Opéra" "12 rue de Rivoli" "3 boulevard Haussmann" "18 place Vendôme" "7 rue de la Victoire")
+ADDRESS_LINES+=("10 Downing Street" "221B Baker Street" "1 Oxford Street" "42 Wallaby Way")
+ADDRESS_LINES+=("15 Unter den Linden" "23 Kurfürstendamm" "7 Via Veneto" "15 Calle de Alcalá" "20 Rua Augusta")
+ADDRESS_LINES+=("5 Grote Marktstraat" "12 Ringstrasse" "8 Nybrogatan" "3 Karl Johans gate" "17 Strøget")
+ADDRESS_LINES+=("45 Nowy Świat" "10 Václavské náměstí" "6 Váci utca")
+ADDRESS_LINES+=("888 Fifth Avenue" "123 Main Street" "456 Sunset Boulevard" "1600 Pennsylvania Avenue" "742 Evergreen Terrace")
+ADDRESS_LINES+=("100 Queen Street West" "999 Bay Street")
+ADDRESS_LINES+=("50 Av. Paulista" "100 Rua das Flores" "500 Avenida 9 de Julio" "200 Paseo de la Reforma" "150 Avenida Corrientes" "300 Avenida Providencia")
+ADDRESS_LINES+=("25 Nelson Mandela Square" "10 Long Street" "5 Uhuru Highway" "20 Kenyatta Avenue" "15 Liberation Road" "8 Lagos Island Street")
+ADDRESS_LINES+=("30 Nile Corniche" "12 Mohammed V Boulevard" "7 Habib Bourguiba Avenue" "50 Tahrir Square")
+ADDRESS_LINES+=("100 Nanjing Road" "50 Wangfujing Street" "8 Omotesando" "15 Gangnam-daero" "200 Orchard Road" "10 Sukhumvit Road" "5 Rizal Avenue" "30 Bund")
+ADDRESS_LINES+=("20 Connaught Place" "15 MG Road")
+ADDRESS_LINES+=("1 Martin Place" "200 Queen Street" "50 Lambton Quay" "10 Bourke Street" "5 Edward Street")
 
 # Function to generate random date
 generate_random_date() {
