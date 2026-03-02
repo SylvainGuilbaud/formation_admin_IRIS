@@ -1,6 +1,10 @@
 #!/bin/bash
 
-BASE_URL="http://localhost:18880/iris-prod-1/irisapp/fhir/r4/Patient"
+if [ "$2" = "training" ]; then
+    BASE_URL="http://localhost:10000/irisapp/fhir/r4/Patient"
+else
+    BASE_URL="http://localhost:18880/iris-prod-1/irisapp/fhir/r4/Patient"    
+fi
 
 USERNAME="_system"
 PASSWORD="SYS"
