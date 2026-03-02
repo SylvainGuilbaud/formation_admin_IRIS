@@ -17,7 +17,7 @@ Ce projet sert de travaux pratiques à la formation administration InterSystems 
 1. Cloner ce repo:
 
 ```bash
-git clone https://github.com/yourusername/formation_admin_IRIS.git
+git clone https://github.com/SylvainGuilbaud/formation_admin_IRIS.git
 ```
 
 2. Aller dans le répertoire du repo cloné:
