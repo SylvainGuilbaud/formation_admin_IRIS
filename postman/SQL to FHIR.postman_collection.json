@@ -1,0 +1,55 @@
+{
+  "info": {
+    "_postman_id": "10152690-2e71-4cd0-a1a0-ef98663bd49b",
+    "name": "SQL to FHIR",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "3919834",
+    "_collection_link": "https://go.postman.co/collection/3919834-10152690-2e71-4cd0-a1a0-ef98663bd49b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "SQL",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "FHIR",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "SYS",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "_system",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:10000/sqltofhir/fhir/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10000",
+          "path": [
+            "sqltofhir",
+            "fhir",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
