@@ -12,7 +12,7 @@
     "produces": ["application/json"],
     "paths": {
         "/": {
-            "get": {
+            "GET": {
                 "summary": "Get all persons",
                 "operationId": "getAllPersons",
                 "tags": ["Person"],
@@ -34,7 +34,7 @@
                     }
                 }
             },
-            "post": {
+            "POST": {
                 "summary": "Create a new person",
                 "operationId": "createPerson",
                 "tags": ["Person"],
@@ -72,7 +72,7 @@
             }
         },
         "/{id}": {
-            "get": {
+            "GET": {
                 "summary": "Get a person by ID",
                 "operationId": "getPersonById",
                 "tags": ["Person"],
@@ -107,7 +107,7 @@
                     }
                 }
             },
-            "put": {
+            "PUT": {
                 "summary": "Update a person by ID",
                 "operationId": "updatePerson",
                 "tags": ["Person"],
@@ -157,7 +157,7 @@
                     }
                 }
             },
-            "delete": {
+            "DELETE": {
                 "summary": "Delete a person by ID",
                 "operationId": "deletePerson",
                 "tags": ["Person"],

@@ -65,6 +65,7 @@
 
     do ##class(FHIR.utils).SetupFHIRServer("IRISAPP")
 
+
     // Modifiy /terminalsocket application to allow WebTerminal to work with %AdminSecure privilege
 
     zn "%SYS"
@@ -80,5 +81,14 @@
     set resource.Permission = 4
     do role.Resources.Insert(resource)
     set sc = role.%Save()
+
+    // add REST applicationlication for SQL to FHIR service
+    set webName = "/sqltofhir"    
+    set webProperties("DispatchClass") = "sqltofhir.disp"
+    set webProperties("NameSpace") = "IRISAPP"
+    set webProperties("Enabled") = 1
+    set webProperties("AutheEnabled") = 96
+    set webProperties("MatchRoles")=":%All"
+    set sc = ##class(Security.Applications).Create(webName, .webProperties)
 
     halt

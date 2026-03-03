@@ -53,5 +53,15 @@ if [ ${COPY_STATUS} -ne 0 ]; then
     exit 1
 fi
 
+
 echo "$(date) - External backup completed successfully. Backup stored in: ${BACKUP_DEST}" | tee -a "${LOG_FILE}"
+
+# Step 4: ExternalSetHistory - adds an entry to the backup history and counts that backup in the journal purge criteria
+echo "$(date) - Setting backup history for ${CONTAINER_NAME}" | tee -a "${LOG_FILE}"
+docker exec -ti "${CONTAINER_NAME}" iris session iris -U %SYS "##class(Backup.General).ExternalSetHistory(\"${LOG_FILE}\", \"External Backup of ${NAME} on ${TIMESTAMP}\")" 
+if [ $? -ne 0 ]; then
+    echo "$(date) - ERROR: Failed to set backup history for ${CONTAINER_NAME}" | tee -a "${LOG_FILE}"
+    exit 1
+fi
+echo "$(date) - Backup history set successfully for ${CONTAINER_NAME}" | tee -a "${LOG_FILE}"
 exit 0
