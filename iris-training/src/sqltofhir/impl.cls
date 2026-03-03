@@ -17,11 +17,17 @@ ClassMethod getSqlPatientById(id As %String) As %DynamicObject
     set tSC=##class(Ens.Director).CreateBusinessService("REST.service",.tService)
     set request = ##class(msg.request.patient).%New()
     set request.id = id
+    set request.format = "sql"
     set sc=tService.ProcessInput(request,.response)
         
     if $ISOBJECT(response) {
-        set json.firstName = (response."first_name")
-        set json.lastName = (response."last_name")
+        if response."last_name"="" {
+            set json.status="Patient inconnu"
+        }
+        else {
+            set json.firstName = (response."first_name")
+            set json.lastName = (response."last_name")
+        }
     } else {
         set json.status = "Patient introuvable"
     }
@@ -34,10 +40,20 @@ ClassMethod getSqlPatientById(id As %String) As %DynamicObject
 ///     id, Identifiant du patient (mappé depuis l'ID SQL)<br/>
 ClassMethod getFhirPatientById(id As %String) As %Stream.Object
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    set json = {}
+    set tSC=##class(Ens.Director).CreateBusinessService("REST.service",.tService)
+    set request = ##class(msg.request.patient).%New()
+    set request.id = id
+    set request.format = "fhir"
+    set sc=tService.ProcessInput(request,.response)
+        
+    if $ISOBJECT(response) {
+        set json={}.%FromJSON(response.fhir)
+    } else {
+        set json.status = "Patient introuvable"
+    }
+    
+    return json.%ToJSON()
 }
 
 }
