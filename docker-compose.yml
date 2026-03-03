@@ -147,22 +147,22 @@ services:
       - ./notebook/Notebooks:/Notebooks
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
 
-  # postgres:
-  #   container_name: training-postgres
-  #   image: postgres:latest
-  #   environment:
-  #     POSTGRES_PASSWORD: postgres
-  #   volumes:
-  #     - ./postgreSQL:/docker-entrypoint-initdb.d/
-  #     - ./databases/postgreSQL:/var/lib/postgresql/data
-  #   ports:
-  #     - 52004:5432
-  #   restart: unless-stopped
-  #   healthcheck:
-  #       test: ["CMD", "pg_isready", "-U", "postgres"]
-  #       interval: 30s
-  #       timeout: 30s
-  #       retries: 3
+  postgres:
+    container_name: training-postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./postgreSQL:/docker-entrypoint-initdb.d/
+      - ./databases/postgreSQL:/var/lib/postgresql/data
+    ports:
+      - 52004:5432
+    restart: unless-stopped
+    healthcheck:
+        test: ["CMD", "pg_isready", "-U", "postgres"]
+        interval: 30s
+        timeout: 30s
+        retries: 3
 
 volumes:
   databases_training:
