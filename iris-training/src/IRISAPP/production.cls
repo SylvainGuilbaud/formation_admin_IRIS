@@ -23,7 +23,9 @@ from app.customer where id = ?</Setting>
     <Setting Target="Host" Name="%gatewayName">%JDBC Server</Setting>
   </Item>
   <Item Name="REST.service" Category="" ClassName="REST.service" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
-    <Setting Target="Host" Name="TargetConfigNames">dw</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">sql to fhir</Setting>
+  </Item>
+  <Item Name="sql to fhir" Category="" ClassName="IRISAPP.process.sqltofhir" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }
