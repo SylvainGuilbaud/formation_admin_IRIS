@@ -1,0 +1,6 @@
+[Actions]
+CreateResource:Name=%DB_NEW_APP_DATA,Description="NEW_APP_DATA database"
+CreateDatabase:Name=NEW_APP_DATA,Directory=/databases/mgr/NEW_APP_DATA,Resource=%DB_NEW_APP_DATA
+CreateResource:Name=%DB_NEW_APP_CODE,Description="NEW_APP_CODE database"
+CreateDatabase:Name=NEW_APP_CODE,Directory=/databases/mgr/NEW_APP_CODE,Resource=%DB_NEW_APP_CODE
+CreateNamespace:Name=NEW_APP,Globals=NEW_APP_DATA,Routines=NEW_APP_CODE,Interop=1
