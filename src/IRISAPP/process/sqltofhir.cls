@@ -15,7 +15,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <property name='sql' type='msg.response.patient' instantiate='0' deletewithcontext='0' />
 <property name='patientResource' type='HS.FHIR.DTL.vR4.Model.Resource.Patient' instantiate='0' deletewithcontext='0' />
 </context>
-<sequence xend='200' yend='900' >
+<sequence xend='200' yend='800' >
 <call name='get patient data' target='dw' async='0' xpos='200' ypos='250' >
 <request type='msg.request.patient' >
 <assign property="callrequest" value="request" action="set" />
@@ -27,15 +27,19 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="response.id" value="callresponse.id" action="set" />
 </response>
 </call>
-<switch name='sql | fhir' xpos='200' ypos='350' xend='200' yend='800' >
+<switch name='sql | fhir' xpos='200' ypos='350' xend='200' yend='700' >
 <case condition='request.format="sql"' name='sql' />
 <case condition='request.format="sql"' name='sql' />
 <case condition='request.format="sql"' name='sql' >
 <empty xpos='335' ypos='500' />
 </case>
 <case condition='request.format="fhir"' >
-<transform name='sql to fhir Patient' class='IRISAPP.transfo.sqltofhir' source='context.sql' target='context.patientResource' xpos='605' ypos='500' />
-<assign name="patientResource" property="response.fhir" value="context.patientResource.ToJSON().Read()" action="set" xpos='605' ypos='600' />
+<transform name='sql to fhir Patient' class='IRISAPP.transfo.sqltofhir' source='context.sql' target='context.patientResource' xpos='605' ypos='500' >
+<annotation><![CDATA[transform into a Patient resource]]></annotation>
+</transform>
+<assign name="patientResource" property="response.fhir" value="context.patientResource.ToJSON().Read()" action="set" xpos='605' ypos='600' >
+<annotation><![CDATA[export the Patient resource in JSON]]></annotation>
+</assign>
 </case>
 <default/>
 </switch>
