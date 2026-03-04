@@ -154,7 +154,7 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - ./postgreSQL:/docker-entrypoint-initdb.d/
-      - ./databases/postgreSQL:/var/lib/postgresql/data
+      - databases_postgreSQL:/var/lib/postgresql/data
     ports:
       - 52004:5432
     restart: unless-stopped
@@ -165,6 +165,7 @@ services:
         retries: 3
 
 volumes:
+  databases_postgreSQL:
   databases_training:
     external: true
     name: ${VOLUME_NAME}databases_training
@@ -201,3 +202,4 @@ volumes:
   WIJ_prod_2:
     external: true
     name: ${VOLUME_NAME}WIJ_prod_2
+  
