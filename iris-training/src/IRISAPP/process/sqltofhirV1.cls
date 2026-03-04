@@ -1,11 +1,6 @@
 /// 
-Class IRISAPP.process.sqltofhir Extends Ens.BusinessProcessBPL
+Class IRISAPP.process.sqltofhirV1 Extends Ens.BusinessProcessBPL
 {
-
-Storage Default
-{
-<Type>%Storage.Persistent</Type>
-}
 
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
@@ -36,11 +31,66 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <case condition='request.format="fhir"' >
 <transform name='sql to fhir Patient' class='IRISAPP.transfo.sqltofhir' source='context.sql' target='context.patientResource' xpos='605' ypos='500' />
 <assign name="patientResource" property="response.fhir" value="context.patientResource.ToJSON().Read()" action="set" xpos='605' ypos='600' />
+<code name='FHIR' xpos='605' ypos='700' disabled="true">
+<![CDATA[  set patient = {
+
+    "resourceType": "Patient",
+    "id": (context.sql.id),
+    "identifier": [
+        {
+            "system": "http://hospital.smarthealthit.org",
+            "value": (context.sql.id)
+        },
+            {
+            "type": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "code": "MR",
+                        "display": "Medical Record Number"
+                    }
+                ],
+                "text": "Medical Record Number"
+            },
+            "system": "http://hospital.smarthealthit.org",
+            "value": (context.sql.id)
+        },
+        {
+            "type": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "code": "SS",
+                        "display": "Social Security Number"
+                    }
+                ],
+                "text": "Social Security Number"
+            },
+            "system": "http://hl7.org/fhir/sid/us-ssn",
+            "value": (context.sql.id)
+        }
+    ],
+    "name": [
+        {
+            "use": "official",
+            "family": (context.sql."last_name"),
+            "given": [(context.sql."first_name")]
+        }
+    ]
+  }
+  
+  set response.fhir=patient.%ToJSON()]]>
+</code>
 </case>
 <default/>
 </switch>
 </sequence>
 </process>
+}
+
+Storage Default
+{
+<Type>%Storage.Persistent</Type>
 }
 
 }

@@ -9,10 +9,12 @@ Property "first_name" As %String [ SqlFieldName = first_name ];
 
 Property fhir As %String(MAXLEN = "");
 
+Property patientResource As HS.FHIR.DTL.vR4.Model.Resource.Patient;
+
 Storage Default
 {
-<Data name="patientDefaultData">
-<Subscript>"patient"</Subscript>
+<Data name="patientFHIRDefaultData">
+<Subscript>"patientFHIR"</Subscript>
 <Value name="1">
 <Value>id</Value>
 </Value>
@@ -25,8 +27,11 @@ Storage Default
 <Value name="4">
 <Value>fhir</Value>
 </Value>
+<Value name="5">
+<Value>patientResource</Value>
+</Value>
 </Data>
-<DefaultData>patientDefaultData</DefaultData>
+<DefaultData>patientFHIRDefaultData</DefaultData>
 <Type>%Storage.Persistent</Type>
 }
 
