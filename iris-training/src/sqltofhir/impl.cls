@@ -43,8 +43,7 @@ ClassMethod getFhirPatientById(id As %String) As %Stream.Object
     set sc=tService.ProcessInput(request,.response)
         
     if $ISOBJECT(response) {
-        do response.%JSONExportToString(.bundleJSON)
-        set json = {}.%FromJSON(bundleJSON)
+        set json = {}.%FromJSON(response.json)
     } else {
         set json.status = "Patient introuvable"
     }
