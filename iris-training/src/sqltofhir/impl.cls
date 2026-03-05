@@ -21,13 +21,8 @@ ClassMethod getSqlPatientById(id As %String) As %DynamicObject
     set sc=tService.ProcessInput(request,.response)
         
     if $ISOBJECT(response) {
-        if response."last_name"="" {
-            set json.status="Patient inconnu"
-        }
-        else {
-            set json.firstName = (response."first_name")
-            set json.lastName = (response."last_name")
-        }
+            do response.%JSONExportToString(.bundleJSON)
+            set json = {}.%FromJSON(bundleJSON)
     } else {
         set json.status = "Patient introuvable"
     }
@@ -48,7 +43,8 @@ ClassMethod getFhirPatientById(id As %String) As %Stream.Object
     set sc=tService.ProcessInput(request,.response)
         
     if $ISOBJECT(response) {
-        set json={}.%FromJSON(response.fhir)
+        do response.%JSONExportToString(.bundleJSON)
+        set json = {}.%FromJSON(bundleJSON)
     } else {
         set json.status = "Patient introuvable"
     }

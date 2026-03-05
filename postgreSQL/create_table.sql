@@ -196,7 +196,7 @@ CREATE TABLE IF NOT EXISTS app.medication_request (
     -- Course of Therapy
     course_of_therapy_type varchar(100),       -- continuous | acute | seasonal
     -- Dosage instructions
-    dosage_text text,
+    dosage_text varchar(1024),
     dosage_timing_code varchar(100),           -- e.g. BID, TID, QID
     dosage_route_system varchar(255),
     dosage_route_code varchar(100),
@@ -239,12 +239,12 @@ INSERT INTO app.medication_request (
     dispense_quantity_value, dispense_quantity_unit,
     dispense_number_of_repeats_allowed
 ) VALUES
-('mreq-001', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '1049502', 'Amoxicillin 500mg', '4', 'Dupont Marie', '2024-01-15 09:00:00', 'Dr. House', 'Take 1 capsule three times daily', 'Oral', 500, 'mg', 21, 'capsule', 0),
-('mreq-002', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '313782', 'Acetaminophen 325mg', '5', 'Yamamoto Kenji', '2024-02-20 10:30:00', 'Dr. Strange', 'Take 2 tablets every 6 hours as needed', 'Oral', 650, 'mg', 30, 'tablet', 2),
-('mreq-003', 'completed', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '429503', 'Ibuprofen 200mg', '6', 'Okafor Amina', '2024-03-05 14:00:00', 'Dr. Who', 'Take 1 tablet twice daily with food', 'Oral', 200, 'mg', 14, 'tablet', 1),
-('mreq-004', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '308460', 'Lisinopril 10mg', '4', 'Dupont Marie', '2024-03-01 08:00:00', 'Dr. Leclerc', 'Take 1 tablet once daily', 'Oral', 10, 'mg', 30, 'tablet', 3),
-('mreq-005', 'on-hold', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '310798', 'Metformin 500mg', '4', 'Dupont Marie', '2024-03-10 09:30:00', 'Dr. Leclerc', 'Take 1 tablet twice daily with meals', 'Oral', 500, 'mg', 60, 'tablet', 5),
-('mreq-006', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '197361', 'Atorvastatin 20mg', '5', 'Yamamoto Kenji', '2024-03-12 11:00:00', 'Dr. Tanaka', 'Take 1 tablet once daily at bedtime', 'Oral', 20, 'mg', 30, 'tablet', 6),
-('mreq-007', 'completed', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '309362', 'Cetirizine 10mg', '5', 'Yamamoto Kenji', '2024-02-01 14:00:00', 'Dr. Tanaka', 'Take 1 tablet once daily', 'Oral', 10, 'mg', 14, 'tablet', 0),
-('mreq-008', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '308049', 'Azithromycin 250mg', '6', 'Okafor Amina', '2024-04-01 10:00:00', 'Dr. Adeyemi', 'Take 2 tablets on day 1, then 1 tablet daily for 4 days', 'Oral', 250, 'mg', 6, 'tablet', 0),
-('mreq-009', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '310429', 'Omeprazole 20mg', '6', 'Okafor Amina', '2024-04-05 09:00:00', 'Dr. Adeyemi', 'Take 1 capsule once daily before breakfast', 'Oral', 20, 'mg', 30, 'capsule', 2);
+('mreq-001', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '1049502', 'Amoxicillin 500mg', '1', 'Dupont Marie', '2024-01-15 09:00:00', 'Dr. House', 'Take 1 capsule three times daily', 'Oral', 500, 'mg', 21, 'capsule', 0),
+('mreq-002', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '313782', 'Acetaminophen 325mg', '2', 'Yamamoto Kenji', '2024-02-20 10:30:00', 'Dr. Strange', 'Take 2 tablets every 6 hours as needed', 'Oral', 650, 'mg', 30, 'tablet', 2),
+('mreq-003', 'completed', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '429503', 'Ibuprofen 200mg', '3', 'Okafor Amina', '2024-03-05 14:00:00', 'Dr. Who', 'Take 1 tablet twice daily with food', 'Oral', 200, 'mg', 14, 'tablet', 1),
+('mreq-004', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '308460', 'Lisinopril 10mg', '1', 'Dupont Marie', '2024-03-01 08:00:00', 'Dr. Leclerc', 'Take 1 tablet once daily', 'Oral', 10, 'mg', 30, 'tablet', 3),
+('mreq-005', 'on-hold', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '310798', 'Metformin 500mg', '1', 'Dupont Marie', '2024-03-10 09:30:00', 'Dr. Leclerc', 'Take 1 tablet twice daily with meals', 'Oral', 500, 'mg', 60, 'tablet', 5),
+('mreq-006', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '197361', 'Atorvastatin 20mg', '2', 'Yamamoto Kenji', '2024-03-12 11:00:00', 'Dr. Tanaka', 'Take 1 tablet once daily at bedtime', 'Oral', 20, 'mg', 30, 'tablet', 6),
+('mreq-007', 'completed', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '309362', 'Cetirizine 10mg', '2', 'Yamamoto Kenji', '2024-02-01 14:00:00', 'Dr. Tanaka', 'Take 1 tablet once daily', 'Oral', 10, 'mg', 14, 'tablet', 0),
+('mreq-008', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '308049', 'Azithromycin 250mg', '3', 'Okafor Amina', '2024-04-01 10:00:00', 'Dr. Adeyemi', 'Take 2 tablets on day 1, then 1 tablet daily for 4 days', 'Oral', 250, 'mg', 6, 'tablet', 0),
+('mreq-009', 'active', 'order', 'http://www.nlm.nih.gov/research/umls/rxnorm', '310429', 'Omeprazole 20mg', '3', 'Okafor Amina', '2024-04-05 09:00:00', 'Dr. Adeyemi', 'Take 1 capsule once daily before breakfast', 'Oral', 20, 'mg', 30, 'capsule', 2);
