@@ -12,7 +12,7 @@ Parameter TREATEMPTYREPEATINGFIELDASNULL = 0;
 XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 {
 <transform sourceClass='msg.response.bundle' targetClass='HS.FHIR.DTL.vR4.Model.Resource.Bundle' create='new' language='python' >
-<assign value='"Bundle"' property='target.type' action='set' />
+<assign value='"collection"' property='target.type' action='set' />
 <assign value='1' property='key' action='set' />
 <subtransform class='IRISAPP.transfo.sqltofhir.Patient' targetObj='target.entry.(key)' sourceObj='source.patient' />
 <foreach property='source.medications()' key='k1' >
