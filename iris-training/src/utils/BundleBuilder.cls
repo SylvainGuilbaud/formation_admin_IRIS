@@ -55,13 +55,16 @@ while (it._GetNext(n, node)):
 return bundle
 }
 
-ClassMethod BuildBundleOS(patient As msg.response.patient, json As %String) As msg.response.bundle
+ClassMethod BuildBundleOS(patient As msg.response.patient, medications As Ens.StreamContainer) As msg.response.bundle
 {
     Set bundle = ##class(msg.response.bundle).%New()
     Set bundle.patient = patient
-    Set bundle.medications = ##class(%ListOfObjects).%New()
+    Set medicationsJSON = ""
+    while 'medications.Stream.AtEnd {
+         Set medicationsJSON = medicationsJSON _ medications.Stream.Read()
+    }
 
-    Set root = ##class(%DynamicObject).%FromJSON(json)
+    Set root = ##class(%DynamicObject).%FromJSON(medicationsJSON)
 
     // Parcours des clés "1","2","3",... (DynamicObject -> iterator)
     Set it = root.%GetIterator()
