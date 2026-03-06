@@ -1,14 +1,19 @@
 Class utils.BundleBuilder
 {
 
-ClassMethod BuildBundle(patient As msg.response.patient, json As %String) As msg.response.bundle [ Language = python ]
+ClassMethod BuildBundle(patient As msg.response.patient, medications As Ens.StreamContainer) As msg.response.bundle [ Language = python ]
 {
 import iris
 bundle = iris.cls("msg.response.bundle")._New()
 bundle.patient = patient
 bundle.medications = iris.cls("%ListOfObjects")._New()
 
-root = iris.cls("%DynamicObject")._FromJSON(json)
+medicationsJSON = ""
+
+while not medications.Stream.AtEnd:
+    medicationsJSON += medications.Stream.Read()
+
+root = iris.cls("%DynamicObject")._FromJSON(medicationsJSON)
 
 #Parcours des clés "1","2","3",... (DynamicObject -> iterator)
 it = root._GetIterator()

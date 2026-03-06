@@ -21,7 +21,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </parameters>
 </property>
 </context>
-<sequence xend='200' yend='1100' >
+<sequence xend='200' yend='1000' >
 <call name='get patient data' target='get Patient' async='0' xpos='200' ypos='250' >
 <request type='msg.request.patient' >
 <assign property="callrequest" value="request" action="set" />
@@ -38,16 +38,13 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.medications" value="callresponse" action="set" />
 </response>
 </call>
-<code name='medicationsJSON' languageOverride='python' xpos='200' ypos='450' >
-<![CDATA[context.medicationsJSON += context.medications.Stream.Read()]]>
-</code>
-<assign name="bundle" property="response" value="iris.cls(&quot;utils.BundleBuilder&quot;).BuildBundle(context.patient,context.medicationsJSON)" action="set" languageOverride="python" xpos='200' ypos='550' />
-<if name='fhir' condition='request.format=="fhir"' languageOverride="python" xpos='200' ypos='650' xend='200' yend='1000' >
+<assign name="bundle" property="response" value="iris.cls(&quot;utils.BundleBuilder&quot;).BuildBundle(context.patient,context.medications)" action="set" languageOverride="python" xpos='200' ypos='450' />
+<if name='fhir' condition='request.format=="fhir"' languageOverride="python" xpos='200' ypos='550' xend='200' yend='900' >
 <true>
-<transform name='sql to fhir Bundle' class='IRISAPP.transfo.sqltofhir.Bundle' source='response' target='context.bundle' xpos='335' ypos='800' >
+<transform name='sql to fhir Bundle' class='IRISAPP.transfo.sqltofhir.Bundle' source='response' target='context.bundle' xpos='335' ypos='700' >
 <annotation><![CDATA[transform into a Bundle resource]]></annotation>
 </transform>
-<assign name="json" property="response.json" value="context.bundle.ToJSON().Read()" action="set" languageOverride="python" xpos='335' ypos='900' />
+<assign name="json" property="response.json" value="context.bundle.ToJSON().Read()" action="set" languageOverride="python" xpos='335' ypos='800' />
 </true>
 </if>
 </sequence>
