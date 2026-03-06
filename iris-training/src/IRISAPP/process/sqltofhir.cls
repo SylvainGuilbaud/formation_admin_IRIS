@@ -21,7 +21,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </parameters>
 </property>
 </context>
-<sequence xend='200' yend='1000' >
+<sequence xend='200' yend='1100' >
 <call name='get patient data' target='get Patient' async='0' xpos='200' ypos='250' >
 <request type='msg.request.patient' >
 <assign property="callrequest" value="request" action="set" />
@@ -38,26 +38,18 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.medications" value="callresponse" action="set" />
 </response>
 </call>
-<code name='medicationsJSON' xpos='200' ypos='450' >
-<![CDATA[ while 'context.medications.Stream.AtEnd {
-  set context.medicationsJSON = context.medicationsJSON _ context.medications.Stream.Read()
- }]]>
+<code name='medicationsJSON' languageOverride='python' xpos='200' ypos='450' >
+<![CDATA[context.medicationsJSON += context.medications.Stream.Read()]]>
 </code>
-<assign name="bundle" property="response" value="##class(utils.BundleBuilder).BuildBundle(context.patient,context.medicationsJSON)" action="set" xpos='200' ypos='550' />
-<switch name='sql | fhir' xpos='200' ypos='650' xend='200' yend='900' >
-<case condition='request.format="sql"' name='sql' />
-<case condition='request.format="sql"' name='sql' />
-<case condition='request.format="sql"' name='sql' >
-<empty name='do nothing' xpos='335' ypos='800' />
-</case>
-<case condition='request.format="fhir"' >
-<transform name='sql to fhir Bundle' class='IRISAPP.transfo.sqltofhir.Bundle' source='response' target='context.bundle' xpos='605' ypos='800' >
+<assign name="bundle" property="response" value="iris.cls(&quot;utils.BundleBuilder&quot;).BuildBundle(context.patient,context.medicationsJSON)" action="set" languageOverride="python" xpos='200' ypos='550' />
+<if name='fhir' condition='request.format=="fhir"' languageOverride="python" xpos='200' ypos='650' xend='200' yend='1000' >
+<true>
+<transform name='sql to fhir Bundle' class='IRISAPP.transfo.sqltofhir.Bundle' source='response' target='context.bundle' xpos='335' ypos='800' >
 <annotation><![CDATA[transform into a Bundle resource]]></annotation>
 </transform>
-<assign name="json" property="response.json" value="context.bundle.ToJSON().Read()" action="set" xpos='812' ypos='884' />
-</case>
-<default/>
-</switch>
+<assign name="json" property="response.json" value="context.bundle.ToJSON().Read()" action="set" languageOverride="python" xpos='335' ypos='900' />
+</true>
+</if>
 </sequence>
 </process>
 }

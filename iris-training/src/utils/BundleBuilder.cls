@@ -1,7 +1,59 @@
 Class utils.BundleBuilder
 {
 
-ClassMethod BuildBundle(patient As msg.response.patient, json As %String) As msg.response.bundle
+ClassMethod BuildBundle(patient As msg.response.patient, json As %String) As msg.response.bundle [ Language = python ]
+{
+import iris
+bundle = iris.cls("msg.response.bundle")._New()
+bundle.patient = patient
+bundle.medications = iris.cls("%ListOfObjects")._New()
+
+root = iris.cls("%DynamicObject")._FromJSON(json)
+
+#Parcours des clés "1","2","3",... (DynamicObject -> iterator)
+it = root._GetIterator()
+n = iris.ref()       # output ref (clé)
+node = iris.ref()    # output ref (valeur)
+
+while (it._GetNext(n, node)):
+    key = n.value
+    presc = node.value   # <- la prescription (%DynamicObject)
+
+    # Sérialisation JSON du DynamicObject
+    json_value = presc._ToJSON()
+
+    # Ecriture dans la globale ^TRACE("node", key)
+    #; trace = iris.gref("^TRACE") 
+    #; trace[key] = json_value
+    
+    med = iris.cls("msg.response.medication")._New()
+    med.id     = presc._Get("id")
+    med.status = presc._Get("status")
+    med.intent = presc._Get("intent")
+
+    med.medication_concept_system  = presc._Get("medication_concept_system")
+    med.medication_concept_code    = presc._Get("medication_concept_code")  
+    med.medication_concept_display = presc._Get("medication_concept_display")
+
+    med.subject_reference = presc._Get("subject_reference")
+    med.subject_display   = presc._Get("subject_display")    
+    med.authored_on       = presc._Get("authored_on")    
+    med.requester_display = presc._Get("requester_display")
+
+    med.dosage_text          = presc._Get("dosage_text")
+    med.dosage_route_display = presc._Get("dosage_route_display")
+    med.dosage_dose_value    = presc._Get("dosage_dose_value")     
+    med.dosage_dose_unit     = presc._Get("dosage_dose_unit")
+
+    med.dispense_quantity_value = presc._Get("dispense_quantity_value")
+    med.dispense_quantity_unit  = presc._Get("dispense_quantity_unit")
+    med.dispense_number_of_repeats_allowed = presc._Get("dispense_number_of_repeats_allowed")
+
+    bundle.medications.Insert(med)
+return bundle
+}
+
+ClassMethod BuildBundleOS(patient As msg.response.patient, json As %String) As msg.response.bundle
 {
     Set bundle = ##class(msg.response.bundle).%New()
     Set bundle.patient = patient

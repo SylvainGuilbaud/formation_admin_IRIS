@@ -1,11 +1,6 @@
 /// Process to transform SQL data into FHIR resources
-Class IRISAPP.process.sqltofhir Extends Ens.BusinessProcessBPL
+Class IRISAPP.process.sqltofhirV2 Extends Ens.BusinessProcessBPL
 {
-
-Storage Default
-{
-<Type>%Storage.Persistent</Type>
-}
 
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
@@ -38,20 +33,33 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.medications" value="callresponse" action="set" />
 </response>
 </call>
-<code name='medicationsJSON' languageOverride='python' xpos='200' ypos='450' >
-<![CDATA[context.medicationsJSON += context.medications.Stream.Read()]]>
+<code name='medicationsJSON' xpos='200' ypos='450' >
+<![CDATA[ while 'context.medications.Stream.AtEnd {
+  set context.medicationsJSON = context.medicationsJSON _ context.medications.Stream.Read()
+ }]]>
 </code>
-<assign name="bundle" property="response" value="iris.cls(&quot;utils.BundleBuilder&quot;).BuildBundle(context.patient,context.medicationsJSON)" action="set" languageOverride="python" xpos='200' ypos='550' />
-<if name='fhir' condition='request.format=="fhir"' languageOverride="python" xpos='200' ypos='650' xend='200' yend='1000' >
-<true>
-<transform name='sql to fhir Bundle' class='IRISAPP.transfo.sqltofhir.Bundle' source='response' target='context.bundle' xpos='335' ypos='800' >
+<assign name="bundle" property="response" value="##class(utils.BundleBuilder).BuildBundle(context.patient,context.medicationsJSON)" action="set" xpos='200' ypos='550' />
+<switch name='sql | fhir' xpos='200' ypos='650' xend='200' yend='1000' >
+<case condition='request.format="sql"' name='sql' />
+<case condition='request.format="sql"' name='sql' />
+<case condition='request.format="sql"' name='sql' >
+<empty name='do nothing' xpos='335' ypos='800' />
+</case>
+<case condition='request.format="fhir"' >
+<transform name='sql to fhir Bundle' class='IRISAPP.transfo.sqltofhir.Bundle' source='response' target='context.bundle' xpos='605' ypos='800' >
 <annotation><![CDATA[transform into a Bundle resource]]></annotation>
 </transform>
-<assign name="json" property="response.json" value="context.bundle.ToJSON().Read()" action="set" languageOverride="python" xpos='335' ypos='900' />
-</true>
-</if>
+<assign name="json" property="response.json" value="context.bundle.ToJSON().Read()" action="set" xpos='605' ypos='900' />
+</case>
+<default/>
+</switch>
 </sequence>
 </process>
+}
+
+Storage Default
+{
+<Type>%Storage.Persistent</Type>
 }
 
 }
