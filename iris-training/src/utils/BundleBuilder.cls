@@ -6,10 +6,7 @@ ClassMethod BuildBundle(patient As msg.response.patient, medications As Ens.Stre
 import iris
 bundle = iris.cls("msg.response.bundle")._New()
 bundle.patient = patient
-bundle.medications = iris.cls("%ListOfObjects")._New()
-
 medicationsJSON = ""
-
 while not medications.Stream.AtEnd:
     medicationsJSON += medications.Stream.Read()
 
