@@ -3,24 +3,6 @@ global:
 rule_files:
   - "./isc_alert_rules.yml"
 scrape_configs:
-  - job_name: 'iris'
-    metrics_path: /api/monitor/metrics
-    static_configs:
-      - targets: 
-        - 'host.docker.internal:28000'
-    scheme: http
-  - job_name: 'interop_metrics'
-    metrics_path: /api/monitor/interop/interfaces
-    static_configs:
-      - targets:
-          - 'host.docker.internal:28000'
-    scheme: http
-  - job_name: 'api manager'
-    metrics_path: /metrics
-    static_configs:
-      - targets:
-          - '192.168.65.1:8001'
-    scheme: http
   - job_name: 'iris-training'
     metrics_path: /api/monitor/metrics
     static_configs:
