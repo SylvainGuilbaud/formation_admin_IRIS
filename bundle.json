@@ -1,0 +1,156 @@
+{
+  "resourceType": "Bundle",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:f5a927eb-b7ad-45e0-8c4a-50889491acdb",
+      "resource": {
+        "resourceType": "Patient",
+        "address": [
+          {
+            "city": "Paris",
+            "country": "France",
+            "line": ["10 Rue de Rivoli"],
+            "postalCode": "75001",
+            "use": "home"
+          }
+        ],
+        "birthDate": "1985-06-15",
+        "gender": "female",
+        "id": "1",
+        "identifier": [{ "use": "official", "value": "P-001" }],
+        "name": [{ "family": "Dupont", "given": ["Marie"], "use": "official" }],
+        "telecom": [
+          { "system": "phone", "use": "home", "value": "+33-1-23-45-67-89" }
+        ],
+        "text": {
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Patient 1</div>",
+          "status": "generated"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c331427b-cd90-4758-9ddb-fa2a593b77c9",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "authoredOn": "2024-01-15T09:00:00+01:00",
+        "dispenseRequest": {
+          "numberOfRepeatsAllowed": 0,
+          "quantity": { "unit": "capsule", "value": 21.0 }
+        },
+        "dosageInstruction": [
+          {
+            "doseAndRate": [
+              { "doseQuantity": { "unit": "mg", "value": 500.0 } }
+            ],
+            "route": { "text": "Oral" },
+            "text": "Take 1 capsule three times daily"
+          }
+        ],
+        "id": "mreq-001",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "code": "1049502",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm"
+            }
+          ],
+          "text": "Amoxicillin 500mg"
+        },
+        "requester": { "display": "Dr. House" },
+        "status": "active",
+        "subject": {
+          "display": "Dupont Marie",
+          "reference": "urn:uuid:f5a927eb-b7ad-45e0-8c4a-50889491acdb"
+        },
+        "text": {
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">MedicationRequest mreq-001</div>",
+          "status": "generated"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d19ef27e-a303-448f-825e-ad65e87267fa",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "authoredOn": "2024-03-01T08:00:00+01:00",
+        "dispenseRequest": {
+          "numberOfRepeatsAllowed": 3,
+          "quantity": { "unit": "tablet", "value": 30.0 }
+        },
+        "dosageInstruction": [
+          {
+            "doseAndRate": [
+              { "doseQuantity": { "unit": "mg", "value": 10.0 } }
+            ],
+            "route": { "text": "Oral" },
+            "text": "Take 1 tablet once daily"
+          }
+        ],
+        "id": "mreq-004",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "code": "308460",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm"
+            }
+          ],
+          "text": "Lisinopril 10mg"
+        },
+        "requester": { "display": "Dr. Leclerc" },
+        "status": "active",
+        "subject": {
+          "display": "Dupont Marie",
+          "reference": "urn:uuid:f5a927eb-b7ad-45e0-8c4a-50889491acdb"
+        },
+        "text": {
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">MedicationRequest mreq-004</div>",
+          "status": "generated"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c2f74aaa-d9d5-4385-b668-065fb2c50e81",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "authoredOn": "2024-03-10T09:30:00+01:00",
+        "dispenseRequest": {
+          "numberOfRepeatsAllowed": 5,
+          "quantity": { "unit": "tablet", "value": 60.0 }
+        },
+        "dosageInstruction": [
+          {
+            "doseAndRate": [
+              { "doseQuantity": { "unit": "mg", "value": 500.0 } }
+            ],
+            "route": { "text": "Oral" },
+            "text": "Take 1 tablet twice daily with meals"
+          }
+        ],
+        "id": "mreq-005",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "code": "310798",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm"
+            }
+          ],
+          "text": "Metformin 500mg"
+        },
+        "requester": { "display": "Dr. Leclerc" },
+        "status": "on-hold",
+        "subject": {
+          "display": "Dupont Marie",
+          "reference": "urn:uuid:f5a927eb-b7ad-45e0-8c4a-50889491acdb"
+        },
+        "text": {
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">MedicationRequest mreq-005</div>",
+          "status": "generated"
+        }
+      }
+    }
+  ],
+  "type": "collection"
+}
