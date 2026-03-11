@@ -228,6 +228,25 @@ services:
       - ./data/IRIS/mgr:/var/log
     command: -config.file=/etc/promtail/config.yml
 
+  fhir_validator_app:
+    build:
+      context: fhir-validator-app
+    depends_on:
+      - fhir_validator_service
+    container_name: fhir_validator_app
+    environment:
+      EXTERNAL_VALIDATOR_URL: http://localhost:4567
+      VALIDATOR_BASE_PATH: /validator
+    ports:
+      - "1234:80"
+    command: 
+  fhir_validator_service:
+    image: infernocommunity/fhir-validator-service:latest
+    container_name: fhir_validator_service
+    volumes:
+      - ./igs:/home/igs/package
+    ports:
+      - "4567:4567"
 
 volumes:
   prometheus:

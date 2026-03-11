@@ -16,6 +16,7 @@
       "host": "localhost",
       "active": true,
       "links": {
+        "FHIR validator": "http://${host}:1234/validator",
         "Patient List TRAINING": "http://${host}:${port}/fhir/portal/patientlist.html",
         "Patient List PROD 1": "http://${host}:18880/iris-prod-1/fhir/portal/patientlist.html",
         "Patient List PROD 2": "http://${host}:18880/iris-prod-2/fhir/portal/patientlist.html",

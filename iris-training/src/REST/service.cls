@@ -10,10 +10,13 @@ Parameter SETTINGS = "TargetConfigNames:Basic:selector?multiSelect=1&context={En
 
 Method OnProcessInput(pInput As %RegisteredObject, Output pOutput As %RegisteredObject) As %Status
 {
+	$$$LOGINFO("Received request of type "_$CLASSNAME(pInput))
+	$$$TRACE("Received request of type "_$CLASSNAME(pInput)_" with content: "_$SYSTEM.OBJ.Dump(pInput))
 	set tSC=$$$OK
 	for iTarget=1:1:$L(..TargetConfigNames, ",") {
 		set tOneTarget=$ZStrip($P(..TargetConfigNames,",",iTarget),"<>W")  Continue:""=tOneTarget
 		set tSC1=..SendRequestSync(tOneTarget,pInput,.pOutput)  Set:$$$ISERR(tSC1) tSC=$$$ADDSC(tSC,tSC1)
+		$$$TRACE("Sent request to "_tOneTarget_" with status "_$SYSTEM.Status.GetErrorText(tSC1))
 	}
 	return tSC
 }

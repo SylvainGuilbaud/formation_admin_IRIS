@@ -45,7 +45,7 @@ ClassMethod getFhirPatientById(id As %String) As %Stream.Object
     if $ISOBJECT(response) {
         set json = {}.%FromJSON(response.json)
     } else {
-        set json.status = "Patient introuvable"
+        set json.status = "Patient introuvable au CHU de Toulouse"
     }
     
     return json.%ToJSON()

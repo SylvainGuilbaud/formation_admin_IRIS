@@ -1,0 +1,6 @@
+.byebug_history
+resources/terminology/*
+umls.zip
+.DS_Store
+node_modules/
+public/js/dist/
