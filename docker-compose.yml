@@ -24,7 +24,7 @@ services:
       - WIJ_training:/WIJ
       - ./merge.cpf:/merge.cpf
     healthcheck:
-      test: ["CMD", "iris", "session", "iris", "-U", "%SYS", "##class(%SYSTEM.OBJ).ShowClasses()"]
+      test: ["CMD", "iris", "session", "iris", "-U", "%SYS", "##class(%Api.Atelier).GetServer()"]
       interval: 15s
       timeout: 10s
       retries: 5
@@ -65,7 +65,7 @@ services:
       - 10001:1972
     command: --key /iris-prod-1/key/iris.key -a /iris-prod-1/configure.sh
     healthcheck:
-      test: ["CMD", "iris", "session", "iris", "-U", "%SYS", "##class(%SYSTEM.OBJ).ShowClasses()"]
+      test: ["CMD", "iris", "session", "iris", "-U", "%SYS", "##class(%Api.Atelier).GetServer()"]
       interval: 15s
       timeout: 10s
       retries: 5
@@ -106,7 +106,7 @@ services:
       - 10002:1972
     command: --key /iris-prod-2/key/iris.key -a /iris-prod-2/configure.sh
     healthcheck:
-      test: ["CMD", "iris", "session", "iris", "-U", "%SYS", "##class(%SYSTEM.OBJ).ShowClasses()"]
+      test: ["CMD", "iris", "session", "iris", "-U", "%SYS", "##class(%Api.Atelier).GetServer()"]
       interval: 15s
       timeout: 10s
       retries: 5
