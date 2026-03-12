@@ -134,6 +134,13 @@ services:
     image: ${ARBITER}
     container_name: ${ARBITER_NAME}
     hostname: ${ARBITER_NAME}
+    environment:
+      - TZ=$TZ
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "ISCAgentUser"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     # command: ["-p 2188"]
 
   notebook:
