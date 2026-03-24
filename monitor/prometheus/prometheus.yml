@@ -39,4 +39,13 @@ scrape_configs:
       - targets:
           - 'host.docker.internal:18880'
     scheme: http
-
+  - job_name: 'iris-htap'
+    metrics_path: /api/monitor/metrics
+    static_configs:
+      - targets: 
+        - 'host.docker.internal:20080'
+  - job_name: 'application'
+    metrics_path: /monitor/metrics
+    static_configs:
+      - targets: 
+        - 'host.docker.internal:10000'

@@ -15,6 +15,7 @@ services:
     ports: 
       - 11972:1972
       - 10000:52773
+      - 19201:19201
     volumes:
       - ./iris-training:/irisdev/app
       - ./jdbc:/jdbc
@@ -63,6 +64,7 @@ services:
       - ISC_CPF_MERGE_FILE=/merge.cpf
     ports:
       - 10001:1972
+      - 39201:39201
     command: --key /iris-prod-1/key/iris.key -a /iris-prod-1/configure.sh
     healthcheck:
       test: ["CMD", "iris", "session", "iris", "-U", "%SYS", "##class(%Api.Atelier).GetServer()"]
@@ -104,6 +106,7 @@ services:
       - ISC_CPF_MERGE_FILE=/merge.cpf
     ports:
       - 10002:1972
+      - 39202:39202
     command: --key /iris-prod-2/key/iris.key -a /iris-prod-2/configure.sh
     healthcheck:
       test: ["CMD", "iris", "session", "iris", "-U", "%SYS", "##class(%Api.Atelier).GetServer()"]

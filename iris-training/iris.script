@@ -65,6 +65,13 @@
 
     do ##class(FHIR.utils).SetupFHIRServer("IRISAPP")
 
+    zn "IRISAPP"
+    do ##class(Ens.Util.Statistics).EnableSAMForNamespace()
+    do ##class(Ens.Util.Statistics).EnableStatsForProduction()
+
+    do ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/src/HL7v2/HL7v25IHE.HL7")
+    do ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/src/HL7v2/nonIHE.HL7")
+
 
     // Modifiy /terminalsocket application to allow WebTerminal to work with %AdminSecure privilege
 
