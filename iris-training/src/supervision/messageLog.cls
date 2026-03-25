@@ -1,4 +1,4 @@
-Class monitor.messageLog Extends Ens.BusinessOperation
+Class supervision.messageLog Extends Ens.BusinessOperation
 {
 
 Property Label As %String(MAXLEN = 255) [ InitialExpression = "MESSAGE FROM INTEROP PRODUCTION" ];

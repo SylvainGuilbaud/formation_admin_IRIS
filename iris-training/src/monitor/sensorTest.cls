@@ -23,7 +23,7 @@ ClassMethod add() As %Status
 Method GetSensors() As %Status
 {
    &sql(delete from monitor.nb)
-   set items = ##class(Ens.Config.Production).%OpenId("IRISHealth.production").Items
+   set items = ##class(Ens.Config.Production).%OpenId("IRISAPP.production").Items
    for i=1:1:items.Count() {
       set configName = $zcvt($translate(items.GetAt(i).Name," -.àâéèê","___aaeee"),"L")
       set name = items.GetAt(i).Name
