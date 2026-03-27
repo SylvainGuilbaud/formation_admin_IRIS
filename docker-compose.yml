@@ -113,8 +113,44 @@ services:
       interval: 15s
       timeout: 10s
       retries: 5
-      start_period: 60s
-      
+      start_period: 60s    
+  iris-prod-3:
+    image: iris-prod-1
+    restart: always
+    init: true
+    container_name: iris-prod-3
+    hostname: iris-prod-3
+    volumes:
+    - ./iris-prod:/irisdev/app
+    - ./jdbc:/jdbc
+    - databases_prod_3:/databases
+    - journal_prod_3:/journal
+    - journal2_prod_3:/journal2
+    - WIJ_prod_3:/WIJ
+    - ./merge.cpf:/merge.cpf
+    - type: bind
+      source: ./iris-prod
+      target: /iris-prod-3
+    - type: bind
+      source: ./webgateway/cert
+      target: /opt/cert
+    - type: bind
+      source: ./mirror/mirror-certs
+      target: /mirror-certs
+    environment:
+      - TZ=$TZ
+      - ISC_DATA_DIRECTORY=/databases
+      - ISC_CPF_MERGE_FILE=/merge.cpf
+    ports:
+      - 10003:1972
+      - 39203:39203
+    command: --key /iris-prod-3/key/iris.key -a /iris-prod-3/configure.sh
+    healthcheck:
+      test: ["CMD", "iris", "session", "iris", "-U", "%SYS", "##class(%Api.Atelier).GetServer()"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s    
   webgateway:
     image: ${WEBGATEWAY}
     init: true
@@ -298,4 +334,16 @@ volumes:
   WIJ_prod_2:
     external: true
     name: ${VOLUME_NAME}WIJ_prod_2
-  
+    
+  databases_prod_3:
+    external: true
+    name: ${VOLUME_NAME}databases_prod_3
+  journal_prod_3:
+    external: true
+    name: ${VOLUME_NAME}journal_prod_3
+  journal2_prod_3:
+    external: true
+    name: ${VOLUME_NAME}journal2_prod_3   
+  WIJ_prod_3:
+    external: true
+    name: ${VOLUME_NAME}WIJ_prod_3

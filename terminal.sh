@@ -12,8 +12,11 @@ case "$TARGET" in
     prod2)
         CONTAINER="iris-prod-2"
         ;;
+    prod3)
+        CONTAINER="iris-prod-3"
+        ;;
     *)
-        echo "Usage: $0 [training|prod1|prod2]"
+        echo "Usage: $0 [training|prod1|prod2|prod3]"
         exit 1
         ;;
 esac
