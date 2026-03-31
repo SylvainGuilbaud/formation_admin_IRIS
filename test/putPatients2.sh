@@ -1,11 +1,9 @@
 #!/bin/bash
 
 if [ "$2" = "training" ]; then
-    BASE_URL_PATIENT="http://localhost:10000/irisapp/fhir/r4/Patient"
-    BASE_URL_OBSERVATION="http://localhost:10000/irisapp/fhir/r4/Observation"
+    BASE_URL="http://localhost:10000/irisapp/fhir/r4/Patient"
 else
-    BASE_URL_PATIENT="http://localhost:18880/iris-prod-1/irisapp/fhir/r4/Patient"
-    BASE_URL_OBSERVATION="http://localhost:18880/iris-prod-1/irisapp/fhir/r4/Observation"    
+    BASE_URL="http://localhost:18880/iris-prod-2/irisapp/fhir/r4/Patient"    
 fi
 
 USERNAME="_system"
@@ -196,126 +194,14 @@ for i in $(seq 1 $ITERATIONS); do
 EOF
 )
     
-    # Send PUT request for Patient
+    # Send PUT request
     echo "Iteration $i: Sending Patient $ID ..."
-    curl -X PUT "$BASE_URL_PATIENT/$ID" \
+    curl -X PUT "$BASE_URL/$ID" \
         -H "Content-Type: application/fhir+json" \
         -u "$USERNAME:$PASSWORD" \
         -d "$JSON"
     
     echo ""
-    
-    # Generate random blood pressure values
-    SYSTOLIC=$((90 + RANDOM % 61))  # Range 90-150
-    DIASTOLIC=$((60 + RANDOM % 31)) # Range 60-90
-    
-    # Create Systolic Blood Pressure Observation
-    SYSTOLIC_OBSERVATION_ID="BP-SYS-$ID"
-    SYSTOLIC_JSON=$(cat <<EOF
-{
-    "resourceType": "Observation",
-    "id": "$SYSTOLIC_OBSERVATION_ID",
-    "status": "final",
-    "category": [
-        {
-            "coding": [
-                {
-                    "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                    "code": "vital-signs",
-                    "display": "Vital Signs"
-                }
-            ]
-        }
-    ],
-    "code": {
-        "coding": [
-            {
-                "system": "http://loinc.org",
-                "code": "8480-6",
-                "display": "Systolic blood pressure"
-            }
-        ],
-        "text": "Systolic blood pressure"
-    },
-    "subject": {
-        "reference": "Patient/$ID"
-    },
-    "valueQuantity": {
-        "value": $SYSTOLIC,
-        "unit": "mmHg",
-        "system": "http://unitsofmeasure.org",
-        "code": "mm[Hg]"
-    },
-    "meta": {
-        "lastUpdated": "2026-02-24T11:07:14Z",
-        "versionId": "1"
-    }
-}
-EOF
-)
-    
-    # Send PUT request for Systolic Blood Pressure
-    echo "Sending Systolic Blood Pressure Observation for Patient $ID (${SYSTOLIC} mmHg)..."
-    curl -X PUT "$BASE_URL_OBSERVATION/$SYSTOLIC_OBSERVATION_ID" \
-        -H "Content-Type: application/fhir+json" \
-        -u "$USERNAME:$PASSWORD" \
-        -d "$SYSTOLIC_JSON"
-    
-    echo ""
-    
-    # Create Diastolic Blood Pressure Observation
-    DIASTOLIC_OBSERVATION_ID="BP-DIA-$ID"
-    DIASTOLIC_JSON=$(cat <<EOF
-{
-    "resourceType": "Observation",
-    "id": "$DIASTOLIC_OBSERVATION_ID",
-    "status": "final",
-    "category": [
-        {
-            "coding": [
-                {
-                    "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                    "code": "vital-signs",
-                    "display": "Vital Signs"
-                }
-            ]
-        }
-    ],
-    "code": {
-        "coding": [
-            {
-                "system": "http://loinc.org",
-                "code": "8462-4",
-                "display": "Diastolic blood pressure"
-            }
-        ],
-        "text": "Diastolic blood pressure"
-    },
-    "subject": {
-        "reference": "Patient/$ID"
-    },
-    "valueQuantity": {
-        "value": $DIASTOLIC,
-        "unit": "mmHg",
-        "system": "http://unitsofmeasure.org",
-        "code": "mm[Hg]"
-    },
-    "meta": {
-        "lastUpdated": "2026-02-24T11:07:14Z",
-        "versionId": "1"
-    }
-}
-EOF
-)
-    
-    # Send PUT request for Diastolic Blood Pressure
-    echo "Sending Diastolic Blood Pressure Observation for Patient $ID (${DIASTOLIC} mmHg)..."
-    curl -X PUT "$BASE_URL_OBSERVATION/$DIASTOLIC_OBSERVATION_ID" \
-        -H "Content-Type: application/fhir+json" \
-        -u "$USERNAME:$PASSWORD" \
-        -d "$DIASTOLIC_JSON"
-    
-    echo ""
 done
 
-echo "Completed $ITERATIONS iterations with $(($ITERATIONS * 3)) FHIR resources sent ($ITERATIONS patients + $(($ITERATIONS * 2)) blood pressure observations)"
+echo "Completed $ITERATIONS requests"

@@ -8,6 +8,8 @@ services:
     restart: always
     hostname: iris-training
     container_name: iris-training
+    networks:
+      - default
     environment:
       - TZ=$TZ
       - ISC_DATA_DIRECTORY=/databases
@@ -48,7 +50,7 @@ services:
     - journal_prod_1:/journal
     - journal2_prod_1:/journal2
     - WIJ_prod_1:/WIJ
-    - ./merge.cpf:/merge.cpf
+    - ./mergeNOTValidatedMember.cpf:/merge.cpf
     - type: bind
       source: ./iris-prod
       target: /iris-prod-1
@@ -72,6 +74,8 @@ services:
       timeout: 10s
       retries: 5
       start_period: 60s
+    networks:
+      - default
   
   iris-prod-2:
     build: 
@@ -113,7 +117,9 @@ services:
       interval: 15s
       timeout: 10s
       retries: 5
-      start_period: 60s    
+      start_period: 60s
+    networks:
+      - default    
   iris-prod-3:
     image: iris-prod-1
     restart: always
@@ -127,7 +133,7 @@ services:
     - journal_prod_3:/journal
     - journal2_prod_3:/journal2
     - WIJ_prod_3:/WIJ
-    - ./merge.cpf:/merge.cpf
+    - ./mergeNOTValidatedMember.cpf:/merge.cpf
     - type: bind
       source: ./iris-prod
       target: /iris-prod-3
@@ -150,7 +156,9 @@ services:
       interval: 15s
       timeout: 10s
       retries: 5
-      start_period: 60s    
+      start_period: 60s
+    networks:
+      - default    
   webgateway:
     image: ${WEBGATEWAY}
     init: true
@@ -169,6 +177,8 @@ services:
     - type: bind
       source: ./webgateway/cert
       target: /opt/cert
+    networks:
+      - default
   arbiter:
     image: ${ARBITER}
     container_name: ${ARBITER_NAME}
@@ -180,6 +190,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    networks:
+      - default
     # command: ["-p 2188"]
 
   notebook:
@@ -192,6 +204,8 @@ services:
     volumes:
       - ./notebook/Notebooks:/Notebooks
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
+    networks:
+      - default
 
   postgres:
     container_name: training-postgres
@@ -209,6 +223,8 @@ services:
         interval: 30s
         timeout: 30s
         retries: 3
+    networks:
+      - default
 
   prometheus:
     image: prom/prometheus:latest
@@ -220,6 +236,8 @@ services:
       - ./monitor/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./monitor/prometheus/isc_alert_rules.yml:/etc/prometheus/isc_alert_rules.yml
       - prometheus:/prometheus
+    networks:
+      - default
 
   grafana:
     image: grafana/grafana:latest
@@ -256,6 +274,8 @@ services:
       - grafana:/var/lib/grafana
     depends_on:
       - prometheus
+    networks:
+      - default
 
   loki:
     image: grafana/loki:latest
@@ -266,6 +286,8 @@ services:
     # volumes:
     #   - ./loki/local-config.yaml:/etc/loki/local-config.yaml
     #   - ./volumes/loki:/loki
+    networks:
+      - default
 
   promtail:
     image: grafana/promtail:latest
@@ -273,6 +295,8 @@ services:
     volumes:
       - ./data/IRIS/mgr:/var/log
     command: -config.file=/etc/promtail/config.yml
+    networks:
+      - default
 
   fhir_validator_app:
     build:
@@ -285,6 +309,8 @@ services:
       VALIDATOR_BASE_PATH: /validator
     ports:
       - "1234:80"
+    networks:
+      - default
     command: 
   fhir_validator_service:
     image: infernocommunity/fhir-validator-service:latest
@@ -293,7 +319,26 @@ services:
       - ./igs:/home/igs/package
     ports:
       - "4567:4567"
+    networks:
+      - default
+  viewer:
+    build: ./viewer
+    container_name: fhir-viewer-app
+    ports:
+      - "3001:80"
+    depends_on:
+      - iris-prod-1
+    networks:
+      - default
 
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
+    
 volumes:
   prometheus:
   grafana:
