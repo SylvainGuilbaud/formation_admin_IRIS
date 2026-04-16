@@ -2,7 +2,7 @@ services:
   iris-training:
     build: 
       args:
-        IMAGE: ${IMAGE_IRIS_DEV_PREVIEW}
+        IMAGE: ${IMAGE_IRIS_DEV_EM}
       context: iris-training
     image: iris-training  
     restart: always
@@ -36,7 +36,7 @@ services:
   iris-prod-1:
     build: 
       args:
-        IMAGE: ${IMAGE_IRIS_PROD_PREVIEW}
+        IMAGE: ${IMAGE_IRIS_PROD_EM}
       context: iris-prod
     image: iris-prod-1
     restart: always
@@ -78,11 +78,7 @@ services:
       - default
   
   iris-prod-2:
-    build: 
-      args:
-        IMAGE: ${IMAGE_IRIS_PROD_PREVIEW}
-      context: iris-prod
-    image: iris-prod-2
+    image: iris-prod-1
     restart: always
     init: true
     container_name: iris-prod-2

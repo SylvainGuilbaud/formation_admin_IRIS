@@ -7,7 +7,7 @@ routines=0
 jrnbufs=128
 
 [Startup]
-SystemMode=LIVE
+SystemMode=FORMATION ADMIN IRIS
 
 [Actions]
 CreateNamespace:Name=%ALL,Globals=IRISTEMP,Routines=IRISTEMP
